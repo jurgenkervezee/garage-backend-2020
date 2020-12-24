@@ -18,25 +18,28 @@ public class ClientController {
     private ClientService clientService;
     private CarService carService;
 
-
+    //List all clients
     @GetMapping(value = "/clients")
     public ResponseEntity<Object> getClients(){
         List<Client> clients =  clientService.getAllClients();
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
+    //Get client by ID
     @GetMapping(value = "/clients/{id}")
     public ResponseEntity<Object> getClient(@PathVariable("id") long id){
         Client client =  clientService.getClientById(id);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
+    //delete client by ID
     @DeleteMapping(value = "/clients/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable("id") long id){
         clientService.deleteClient(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    //Post new client and return new ID
     @PostMapping(value = "/clients")
     public ResponseEntity<Object> saveClient(@RequestBody Client client){
         long newId = clientService.saveClient(client);
@@ -44,12 +47,14 @@ public class ClientController {
 
     }
 
+    //Change Client by ID
     @PutMapping(value = "/clients/{id}")
     public ResponseEntity<Object> updateClient(@PathVariable("id") int id, @RequestBody Client client){
         clientService.updateClient(id, client);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //Find Client by lastname
     @GetMapping(value = "/clients/lastname/{lastname}")
     public ResponseEntity<Object> getClientLastName(@PathVariable("lastname") String lastName){
         Client client =  clientService.getClientByLastName(lastName);

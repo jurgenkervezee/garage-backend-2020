@@ -67,8 +67,6 @@ public class ClientServiceImpl implements ClientService{
 
             return clientRepository.findByLastNameIgnoreCase(lastName);
 
-
-
     }
 
 }
