@@ -8,6 +8,7 @@
 		<version>2.4.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>nl.jurgen</groupId>
 	<artifactId>jpa_demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -27,7 +28,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -58,5 +58,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
