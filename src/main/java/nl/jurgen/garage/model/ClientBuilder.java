@@ -9,7 +9,7 @@ public class ClientBuilder {
     //Client
     private String firstName;
     private String lastName;
-    private String clientNumber;
+    private String telephoneNumber;
     //Address
     private String streetName;
     private String houseNumber;
@@ -20,7 +20,7 @@ public class ClientBuilder {
     public ClientBuilder(RegisterUserRequest registerUserRequest){
         this.firstName = registerUserRequest.getFirstName();
         this.lastName = registerUserRequest.getLastName();
-        this.clientNumber = registerUserRequest.getClientNumber();
+        this.telephoneNumber = registerUserRequest.getTelephoneNumber();
         this.streetName = registerUserRequest.getStreetName();
         this.houseNumber = registerUserRequest.getHouseNumber();
         this.houseNumberAddition = registerUserRequest.getHouseNumberAddition();
@@ -36,7 +36,7 @@ public class ClientBuilder {
 
     public Client buildClient(){
 
-        return new Client(firstName, lastName, clientNumber);
+        return new Client(firstName, lastName, telephoneNumber);
     }
 
     public Address buildAddress(){

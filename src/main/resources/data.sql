@@ -1,4 +1,4 @@
-INSERT INTO client (first_name, last_name, client_nr)
+INSERT INTO client (first_name, last_name, telephone_number)
 VALUES
 ('Peter', 'Anema', '12464'),
 ('Truus', 'Jansen', '13464'),

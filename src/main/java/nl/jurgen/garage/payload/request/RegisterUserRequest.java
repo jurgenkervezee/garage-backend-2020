@@ -1,13 +1,11 @@
 package nl.jurgen.garage.payload.request;
 
-import javax.persistence.Column;
-
 public class RegisterUserRequest {
 
     //Client
     private String firstName;
     private String lastName;
-    private String clientNumber;
+    private String telephoneNumber;
     //Address
     private String streetName;
     private String houseNumber;
@@ -32,12 +30,12 @@ public class RegisterUserRequest {
         this.lastName = lastName;
     }
 
-    public String getClientNumber() {
-        return clientNumber;
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setClientNumber(String clientNumber) {
-        this.clientNumber = clientNumber;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     public String getStreetName() {

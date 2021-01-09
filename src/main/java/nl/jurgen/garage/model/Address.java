@@ -1,5 +1,6 @@
 package nl.jurgen.garage.model;
 
+import com.sun.istack.NotNull;
 import javax.persistence.*;
 
 @Entity
@@ -10,18 +11,22 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     @Column(name = "street_name" )
     private String streetName;
 
+    @NotNull
     @Column(name = "house_number" )
     private String houseNumber;
 
     @Column(name = "house_number_add" )
     private String houseNumberAddition;
 
+    @NotNull
     @Column(name = "postal_code" )
     private String postalCode;
 
+    @NotNull
     @Column(name = "home_town" )
     private String homeTown;
 

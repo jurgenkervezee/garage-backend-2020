@@ -1,5 +1,7 @@
 package nl.jurgen.garage.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,14 +12,17 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     @Column(name = "first_name")
     private String firstName;
 
+    @NotNull
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "client_nr")
-    private String clientNumber;
+    @NotNull
+    @Column(name = "telephone_number")
+    private String telephoneNumber;
 
     @OneToOne
     private Address address;
@@ -28,10 +33,10 @@ public class Client {
 
     public Client(){
     }
-    public Client(String firstName, String lastName, String clientNumber) {
+    public Client(String firstName, String lastName, String telephoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.clientNumber = clientNumber;
+        this.telephoneNumber = telephoneNumber;
         System.out.println("Client created");
     }
 
@@ -56,10 +61,10 @@ public class Client {
     }
 
     public String getClientNumber() {
-        return clientNumber;
+        return telephoneNumber;
     }
 
-    public void setClientNumber(String clientNumber) {
-        this.clientNumber = clientNumber;
+    public void setClientNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 }
