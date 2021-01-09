@@ -28,10 +28,6 @@ public class Address {
     @OneToOne
     private Client client;
 
-    public long getId() {
-        return id;
-    }
-
     public Address(String streetName, String houseNumber, String houseNumberAddition, String postalCode, String homeTown) {
         this.streetName = streetName;
         this.houseNumber = houseNumber;
@@ -39,6 +35,10 @@ public class Address {
         this.postalCode = postalCode;
         this.homeTown = homeTown;
         System.out.println("Address created");
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setId(long id) {

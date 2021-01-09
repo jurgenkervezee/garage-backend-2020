@@ -22,11 +22,12 @@ public class Client {
     @OneToOne
     private Address address;
 
-
     public long getId() {
         return id;
     }
 
+    public Client(){
+    }
     public Client(String firstName, String lastName, String clientNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
