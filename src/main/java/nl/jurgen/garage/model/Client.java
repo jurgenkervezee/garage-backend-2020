@@ -19,8 +19,19 @@ public class Client {
     @Column(name = "client_nr")
     private String clientNumber;
 
+    @OneToOne
+    private Address address;
+
+
     public long getId() {
         return id;
+    }
+
+    public Client(String firstName, String lastName, String clientNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.clientNumber = clientNumber;
+        System.out.println("Client created");
     }
 
     public void setId(long id) {

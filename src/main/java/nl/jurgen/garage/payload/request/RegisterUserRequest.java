@@ -1,48 +1,43 @@
-package nl.jurgen.garage.model;
+package nl.jurgen.garage.payload.request;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 
-@Entity
-@Table(name = "address")
-public class Address {
+public class RegisterUserRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "street_name" )
+    //Client
+    private String firstName;
+    private String lastName;
+    private String clientNumber;
+    //Address
     private String streetName;
-
-    @Column(name = "house_number" )
     private String houseNumber;
-
-    @Column(name = "house_number_add" )
-    private String houseNumberAddition;
-
-    @Column(name = "postal_code" )
+    private String houseNumberAddition; //optioneel
     private String postalCode;
-
-    @Column(name = "home_town" )
     private String homeTown;
+    //Car
 
-    @OneToOne
-    private Client client;
-
-    public long getId() {
-        return id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public Address(String streetName, String houseNumber, String houseNumberAddition, String postalCode, String homeTown) {
-        this.streetName = streetName;
-        this.houseNumber = houseNumber;
-        this.houseNumberAddition = houseNumberAddition;
-        this.postalCode = postalCode;
-        this.homeTown = homeTown;
-        System.out.println("Address created");
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getClientNumber() {
+        return clientNumber;
+    }
+
+    public void setClientNumber(String clientNumber) {
+        this.clientNumber = clientNumber;
     }
 
     public String getStreetName() {

@@ -1,4 +1,8 @@
 package nl.jurgen.garage.repository;
 
-public interface AddressRepository {
+import nl.jurgen.garage.model.Address;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AddressRepository extends JpaRepository<Address, Long> {
+
 }

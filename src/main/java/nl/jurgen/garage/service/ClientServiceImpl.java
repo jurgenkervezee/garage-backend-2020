@@ -2,7 +2,11 @@ package nl.jurgen.garage.service;
 
 import nl.jurgen.garage.exception.DatabaseErrorException;
 import nl.jurgen.garage.exception.RecordNotFoundException;
+import nl.jurgen.garage.model.Address;
 import nl.jurgen.garage.model.Client;
+import nl.jurgen.garage.model.ClientBuilder;
+import nl.jurgen.garage.payload.request.RegisterUserRequest;
+import nl.jurgen.garage.repository.AddressRepository;
 import nl.jurgen.garage.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,8 @@ public class ClientServiceImpl implements ClientService{
 
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    AddressRepository addressRepository;
 
     @Override
     public List<Client> getAllClients() {
@@ -40,10 +46,18 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public long saveClient(Client client) {
-        Client newClient =  clientRepository.save(client);
-        return newClient.getId();
+    public long saveClient(RegisterUserRequest registerUserRequest) {
+
+        Client client = new ClientBuilder(registerUserRequest).buildClient();
+        Address address = new ClientBuilder(registerUserRequest).buildAddress();
+
+
+        client =  clientRepository.save(client);
+        addressRepository.save(address);
+        return client.getId();
     }
+
+
 
     @Override
     public void updateClient(long id, Client client) {
@@ -66,7 +80,5 @@ public class ClientServiceImpl implements ClientService{
     public Client getClientByLastName(String lastName) {
 
             return clientRepository.findByLastNameIgnoreCase(lastName);
-
     }
-
 }
