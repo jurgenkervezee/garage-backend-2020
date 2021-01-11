@@ -23,14 +23,21 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public List<Client> getAllClients() {
-        return clientRepository.findAll();
+        List<Client> clients= clientRepository.findAll();
+        for(Client a: clients){
+            a.setAddress(null);
+        }
+        return clients;
     }
 
     @Override
     public Client getClientById(long id) {
         if(clientRepository.existsById(id)){
 
-            return clientRepository.findById(id).orElse(null);
+            Client client = clientRepository.findById(id).orElse(null);
+            client.setAddress(null);
+
+            return client;
         }else {
             throw new RecordNotFoundException();
         }
@@ -67,7 +74,7 @@ public class ClientServiceImpl implements ClientService{
                 Client existingClient = clientRepository.findById(id).orElse(null);
                 existingClient.setFirstName(client.getFirstName());
                 existingClient.setLastName(client.getLastName());
-                existingClient.setClientNumber(client.getClientNumber());
+                existingClient.setTelephoneNumber(client.getTelephoneNumber());
                 clientRepository.save(existingClient);
             } catch (Exception e){
                 throw new DatabaseErrorException();
@@ -80,6 +87,8 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public Client getClientByLastName(String lastName) {
 
-            return clientRepository.findByLastNameIgnoreCase(lastName);
+            Client client = clientRepository.findByLastNameIgnoreCase(lastName);
+            client.setAddress(null);
+            return client;
     }
 }

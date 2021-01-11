@@ -1,5 +1,6 @@
 package nl.jurgen.garage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Client {
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
+    @JsonIgnore
     @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Address address;
 
@@ -77,14 +79,5 @@ public class Client {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public String getClientNumber() {
-        return telephoneNumber;
-    }
-
-    public void setClientNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
 
 }
