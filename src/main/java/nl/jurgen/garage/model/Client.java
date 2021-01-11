@@ -24,8 +24,7 @@ public class Client {
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="address_id")
+    @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Address address;
 
     public Client(){
@@ -37,6 +36,7 @@ public class Client {
         this.telephoneNumber = telephoneNumber;
         System.out.println("Client created");
     }
+
 
     public String getTelephoneNumber() {
         return telephoneNumber;

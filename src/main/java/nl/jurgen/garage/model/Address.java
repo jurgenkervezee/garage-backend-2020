@@ -30,7 +30,8 @@ public class Address {
     @Column(name = "home_town" )
     private String homeTown;
 
-    @OneToOne(fetch=FetchType.LAZY, mappedBy="address")
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="client_id")
     private Client client;
 
     public Address(){
@@ -43,6 +44,14 @@ public class Address {
         this.postalCode = postalCode;
         this.homeTown = homeTown;
         System.out.println("Address created");
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public long getId() {

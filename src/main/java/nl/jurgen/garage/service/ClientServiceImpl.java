@@ -53,6 +53,7 @@ public class ClientServiceImpl implements ClientService{
 
         Address savedAddress = addressRepository.save(address);
         client.setAddress(savedAddress);
+        address.setClient(client);
 
         return clientRepository.save(client).getId();
     }
