@@ -24,7 +24,8 @@ public class Client {
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
-    @OneToOne
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="address_id")
     private Address address;
 
     public Client(){

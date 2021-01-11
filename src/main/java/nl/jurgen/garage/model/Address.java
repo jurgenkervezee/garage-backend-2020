@@ -30,6 +30,9 @@ public class Address {
     @Column(name = "home_town" )
     private String homeTown;
 
+    @OneToOne(fetch=FetchType.LAZY, mappedBy="address")
+    private Client client;
+
     public Address(){
     }
 
