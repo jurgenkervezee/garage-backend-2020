@@ -50,7 +50,9 @@ public class ClientServiceImpl implements ClientService{
 
         Client client = new ClientBuilder(registerUserRequest).buildClient();
         Address address = new ClientBuilder(registerUserRequest).buildAddress();
-        client.setAddress(address);
+
+        Address savedAddress = addressRepository.save(address);
+        client.setAddress(savedAddress);
 
         return clientRepository.save(client).getId();
     }
