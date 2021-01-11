@@ -27,17 +27,36 @@ public class Client {
     @OneToOne
     private Address address;
 
-    public long getId() {
-        return id;
-    }
+
 
     public Client(){
     }
+
     public Client(String firstName, String lastName, String telephoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephoneNumber = telephoneNumber;
         System.out.println("Client created");
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setId(long id) {
@@ -67,4 +86,6 @@ public class Client {
     public void setClientNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
+
+
 }

@@ -45,7 +45,6 @@ public class ClientController {
     public ResponseEntity<Object> saveClient(@RequestBody RegisterUserRequest registerUserRequest){
         long newId = clientService.saveClient(registerUserRequest);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
-
     }
 
     //Change Client by ID

@@ -30,9 +30,12 @@ public class Address {
     @Column(name = "home_town" )
     private String homeTown;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
+
+    public Address(){
+    }
 
     public Address(String streetName, String houseNumber, String houseNumberAddition, String postalCode, String homeTown) {
         this.streetName = streetName;
