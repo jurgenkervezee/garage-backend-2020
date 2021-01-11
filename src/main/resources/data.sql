@@ -1,14 +1,14 @@
 INSERT INTO client (first_name, last_name, telephone_number)
 VALUES
-('Peter', 'Anema', '12464'),
-('Truus', 'Jansen', '13464'),
-('Jan', 'Jansen', '14564');
+('Peter', 'Anema', '06-12345678'),
+('Truus', 'Jansen', '06-87654321'),
+('Jan', 'Jansen', '06-12348765');
 
-INSERT into address (home_town, house_number, house_number_add, postal_code, street_name)
+INSERT into address ( street_name, house_number, house_number_add, postal_code, home_town, client_id)
 VALUES
-('Bussum', '2', 'a', '1400 XX', 'Spijkerstraat'),
-('Laren', '1','b' , '1400 XX', 'Bijlstraat'),
-('Bussum', '2', 'a', '1400 XX', 'Hamerstraat');
+('Spijkerstraat', '2', 'a', '1400 XX','Bussum', 1),
+('Bijlstraat',  '1','b' , '1400 XX', 'Laren', 2),
+('Hamerstraat', '2', 'a', '1400 XX', 'Bussum', 3);
 
 INSERT INTO car (number_plate, brand, model)
 VALUES

@@ -1,5 +1,6 @@
 package nl.jurgen.garage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import javax.persistence.*;
 
@@ -30,6 +31,7 @@ public class Address {
     @Column(name = "home_town" )
     private String homeTown;
 
+    @JsonIgnore
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="client_id")
     private Client client;
