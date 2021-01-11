@@ -27,8 +27,6 @@ public class Client {
     @OneToOne
     private Address address;
 
-
-
     public Client(){
     }
 

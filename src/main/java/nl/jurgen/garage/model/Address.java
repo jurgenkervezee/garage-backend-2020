@@ -30,10 +30,6 @@ public class Address {
     @Column(name = "home_town" )
     private String homeTown;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    private Client client;
-
     public Address(){
     }
 
