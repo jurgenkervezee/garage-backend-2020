@@ -14,6 +14,4 @@ public interface ClientService {
     void updateClient(long id, Client client);
     Client getClientByLastName(String lastName);
 
-
-
 }
