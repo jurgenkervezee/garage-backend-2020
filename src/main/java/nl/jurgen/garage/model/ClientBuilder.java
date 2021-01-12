@@ -23,10 +23,8 @@ public class ClientBuilder {
         this.telephoneNumber = registerUserRequest.getTelephoneNumber();
         this.streetName = registerUserRequest.getStreetName();
         this.houseNumber = registerUserRequest.getHouseNumber();
-        this.houseNumberAddition = registerUserRequest.getHouseNumberAddition();
         this.postalCode = registerUserRequest.getPostalCode();
         this.homeTown = registerUserRequest.getHomeTown();
-
     }
 
     public ClientBuilder withHousenumberAddition(RegisterUserRequest registerUserRequest){
@@ -35,13 +33,10 @@ public class ClientBuilder {
     }
 
     public Client buildClient(){
-
         return new Client(firstName, lastName, telephoneNumber);
     }
 
     public Address buildAddress(){
-
         return new Address(streetName, houseNumber, houseNumberAddition, postalCode, homeTown);
     }
-
 }

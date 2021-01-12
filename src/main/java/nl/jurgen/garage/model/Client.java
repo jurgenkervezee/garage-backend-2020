@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
@@ -29,6 +30,10 @@ public class Client {
     @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Address address;
 
+    @JsonIgnore
+    @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
+    private Car cars;
+
     public Client(){
     }
 
@@ -39,6 +44,13 @@ public class Client {
         System.out.println("Client created");
     }
 
+    public Car getCars() {
+        return cars;
+    }
+
+    public void setCars(Car cars) {
+        this.cars = cars;
+    }
 
     public String getTelephoneNumber() {
         return telephoneNumber;

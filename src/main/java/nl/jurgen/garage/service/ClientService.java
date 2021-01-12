@@ -1,5 +1,6 @@
 package nl.jurgen.garage.service;
 
+import nl.jurgen.garage.model.Car;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
 
@@ -13,5 +14,5 @@ public interface ClientService {
     long saveClient(RegisterUserRequest registerUserRequest);
     void updateClient(long id, Client client);
     Client getClientByLastName(String lastName);
-
+    Car getCarById(long id);
 }

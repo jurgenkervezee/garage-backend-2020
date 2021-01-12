@@ -1,5 +1,7 @@
 package nl.jurgen.garage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,27 @@ public class Car {
     @Column(name = "model")
     private String model;
 
+    @JsonIgnore
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="client_id")
+    private Client client;
+
+    public Car(){
+    }
+
+    public Car(String numberPlate, String brand, String model) {
+        this.numberPlate = numberPlate;
+        this.brand = brand;
+        this.model = model;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public long getId() {
         return id;

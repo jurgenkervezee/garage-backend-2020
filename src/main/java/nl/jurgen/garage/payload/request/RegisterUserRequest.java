@@ -1,5 +1,7 @@
 package nl.jurgen.garage.payload.request;
 
+import javax.persistence.Column;
+
 public class RegisterUserRequest {
 
     //Client
@@ -12,7 +14,6 @@ public class RegisterUserRequest {
     private String houseNumberAddition; //optioneel
     private String postalCode;
     private String homeTown;
-    //Car
 
     public String getFirstName() {
         return firstName;

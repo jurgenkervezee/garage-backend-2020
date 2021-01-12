@@ -3,10 +3,12 @@ package nl.jurgen.garage.service;
 import nl.jurgen.garage.exception.DatabaseErrorException;
 import nl.jurgen.garage.exception.RecordNotFoundException;
 import nl.jurgen.garage.model.Address;
+import nl.jurgen.garage.model.Car;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.model.ClientBuilder;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
 import nl.jurgen.garage.repository.AddressRepository;
+import nl.jurgen.garage.repository.CarRepository;
 import nl.jurgen.garage.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,15 @@ public class ClientServiceImpl implements ClientService{
     ClientRepository clientRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    CarRepository carRepository;
 
     @Override
     public List<Client> getAllClients() {
         List<Client> clients= clientRepository.findAll();
         for(Client a: clients){
             a.setAddress(null);
+            a.setCars(null);
         }
         return clients;
     }
@@ -36,6 +41,7 @@ public class ClientServiceImpl implements ClientService{
 
             Client client = clientRepository.findById(id).orElse(null);
             client.setAddress(null);
+            client.setCars(null);
 
             return client;
         }else {
@@ -56,7 +62,9 @@ public class ClientServiceImpl implements ClientService{
     public long saveClient(RegisterUserRequest registerUserRequest) {
 
         Client client = new ClientBuilder(registerUserRequest).buildClient();
-        Address address = new ClientBuilder(registerUserRequest).buildAddress();
+        Address address = new ClientBuilder(registerUserRequest)
+                .withHousenumberAddition(registerUserRequest)
+                .buildAddress();
 
         Address savedAddress = addressRepository.save(address);
         client.setAddress(savedAddress);
@@ -86,9 +94,16 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public Client getClientByLastName(String lastName) {
-
             Client client = clientRepository.findByLastNameIgnoreCase(lastName);
             client.setAddress(null);
+            client.setCars(null);
             return client;
+    }
+
+    @Override
+    public Car getCarById(long id) {
+        if(carRepository.existsById(id)){
+                    }
+        return carRepository.findById(id).orElse(null);
     }
 }

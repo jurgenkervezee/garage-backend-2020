@@ -1,5 +1,6 @@
 package nl.jurgen.garage.controller;
 
+import nl.jurgen.garage.model.Car;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
 import nl.jurgen.garage.service.CarService;
@@ -17,7 +18,6 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
-    private CarService carService;
 
     //List all clients
     @GetMapping(value = "/clients")
@@ -49,7 +49,7 @@ public class ClientController {
 
     //Change Client by ID
     @PutMapping(value = "/clients/{id}")
-    public ResponseEntity<Object> updateClient(@PathVariable("id") int id, @RequestBody Client client){
+    public ResponseEntity<Object> updateClient(@PathVariable("id") long id, @RequestBody Client client){
         clientService.updateClient(id, client);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -60,5 +60,14 @@ public class ClientController {
         Client client =  clientService.getClientByLastName(lastName);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
+
+    //Get car from client
+    @GetMapping(value = "/clients/car/{id}")
+    public ResponseEntity<Object> getClientCarById(@PathVariable("id") long id){
+        Car car = clientService.getCarById(id);
+        return new ResponseEntity<>(car, HttpStatus.OK);
+
+    }
+
 
 }
