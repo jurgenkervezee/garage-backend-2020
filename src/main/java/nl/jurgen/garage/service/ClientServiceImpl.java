@@ -106,4 +106,16 @@ public class ClientServiceImpl implements ClientService{
                     }
         return carRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public long saveCarById(long clientId, Car car) {
+        if((clientRepository.existsById(clientId))){
+
+            Client client = clientRepository.findById(clientId).orElse(null);
+            car.setClient(client);
+            long carId = carRepository.save(car).getId();
+            return carId;
+
+        }else throw new RecordNotFoundException();
+    }
 }

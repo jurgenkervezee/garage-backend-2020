@@ -48,7 +48,7 @@ public class ClientController {
     }
 
     //Change Client by ID
-    @PutMapping(value = "/clients/{id}")
+    @PutMapping(value = "/client/{id}")
     public ResponseEntity<Object> updateClient(@PathVariable("id") long id, @RequestBody Client client){
         clientService.updateClient(id, client);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -66,8 +66,16 @@ public class ClientController {
     public ResponseEntity<Object> getClientCarById(@PathVariable("id") long id){
         Car car = clientService.getCarById(id);
         return new ResponseEntity<>(car, HttpStatus.OK);
-
     }
 
+    //Add a new car to a client
+    @PostMapping(value = "/client/car/{id}")
+    public ResponseEntity<Object> addCarAndLinkById(@PathVariable long id, @RequestBody Car car){
 
+        Client client = clientService.getClientById(id);
+        long carId = clientService.saveCarById(id, car);
+
+        return new ResponseEntity<>(carId + " Toegevoegd aan client: " +
+                client.getFirstName() + " " + client.getLastName(), HttpStatus.OK);
+    }
 }

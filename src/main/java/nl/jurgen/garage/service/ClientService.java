@@ -15,4 +15,6 @@ public interface ClientService {
     void updateClient(long id, Client client);
     Client getClientByLastName(String lastName);
     Car getCarById(long id);
+    long saveCarById(long id, Car car);
+
 }
