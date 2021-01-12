@@ -20,28 +20,28 @@ public class ClientController {
     private ClientService clientService;
 
     //List all clients
-    @GetMapping(value = "/clients")
+    @GetMapping(value = "/client")
     public ResponseEntity<Object> getClients(){
         List<Client> clients =  clientService.getAllClients();
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     //Get client by ID
-    @GetMapping(value = "/clients/{id}")
+    @GetMapping(value = "/client/{id}")
     public ResponseEntity<Object> getClient(@PathVariable("id") long id){
         Client client =  clientService.getClientById(id);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     //delete client by ID
-    @DeleteMapping(value = "/clients/{id}")
+    @DeleteMapping(value = "/client/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable("id") long id){
         clientService.deleteClient(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     //Post new client and return new ID
-    @PostMapping(value = "/clients")
+    @PostMapping(value = "/client")
     public ResponseEntity<Object> saveClient(@RequestBody RegisterUserRequest registerUserRequest){
         long newId = clientService.saveClient(registerUserRequest);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
@@ -55,14 +55,14 @@ public class ClientController {
     }
 
     //Find Client by lastname
-    @GetMapping(value = "/clients/lastname/{lastname}")
+    @GetMapping(value = "/client/lastname/{lastname}")
     public ResponseEntity<Object> getClientLastName(@PathVariable("lastname") String lastName){
         Client client =  clientService.getClientByLastName(lastName);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     //Get car from client
-    @GetMapping(value = "/clients/car/{id}")
+    @GetMapping(value = "/client/car/{id}")
     public ResponseEntity<Object> getClientCarById(@PathVariable("id") long id){
         Car car = clientService.getCarById(id);
         return new ResponseEntity<>(car, HttpStatus.OK);

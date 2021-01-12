@@ -10,10 +10,10 @@ VALUES
 ('Bijlstraat',  '1','b' , '1400 XX', 'Laren', 2),
 ('Hamerstraat', '2', 'a', '1400 XX', 'Bussum', 3);
 
-INSERT INTO car (number_plate, brand, model)
+INSERT INTO car (number_plate, brand, model, client_id)
 VALUES
-('23-HG-35','Opel','Zafira'),
-('12-HG-ZZ','Fiat','Multipla');
+('23-HG-35','Opel','Zafira', 1),
+('12-HG-ZZ','Fiat','Multipla', 2);
 
 INSERT INTO car_part (description, price, stock_amount)
 VALUES
