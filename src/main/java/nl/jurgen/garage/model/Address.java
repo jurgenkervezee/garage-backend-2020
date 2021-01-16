@@ -32,7 +32,9 @@ public class Address {
     private String homeTown;
 
     @JsonIgnore
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval  = true)
     @JoinColumn(name="client_id")
     private Client client;
 

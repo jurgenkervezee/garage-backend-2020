@@ -27,7 +27,8 @@ public class Client {
     private String telephoneNumber;
 
     @JsonIgnore
-    @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
+    @OneToOne(fetch=FetchType.LAZY,
+            mappedBy="client")
     private Address address;
 
     @JsonIgnore
