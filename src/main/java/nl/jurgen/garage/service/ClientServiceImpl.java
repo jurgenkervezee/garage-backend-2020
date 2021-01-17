@@ -28,10 +28,7 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public List<Client> getAllClients() {
         List<Client> clients= clientRepository.findAll();
-        for(Client a: clients){
-            a.setAddress(null);
-            a.setCars(null);
-        }
+
         return clients;
     }
 
@@ -40,8 +37,6 @@ public class ClientServiceImpl implements ClientService{
         if(clientRepository.existsById(id)){
 
             Client client = clientRepository.findById(id).orElse(null);
-            client.setAddress(null);
-            client.setCars(null);
 
             return client;
         }else {
@@ -95,8 +90,6 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public Client getClientByLastName(String lastName) {
             Client client = clientRepository.findByLastNameIgnoreCase(lastName);
-            client.setAddress(null);
-            client.setCars(null);
             return client;
     }
 
