@@ -1,6 +1,5 @@
 package nl.jurgen.garage.payload.request;
 
-import javax.persistence.Column;
 
 public class RegisterUserRequest {
 
