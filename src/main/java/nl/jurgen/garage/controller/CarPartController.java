@@ -39,6 +39,4 @@ public class CarPartController {
         return new ResponseEntity<>("Voorraad mutatie succesvol doorgevoerd" ,HttpStatus.OK);
     }
 
-
-
 }

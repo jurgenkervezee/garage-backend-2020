@@ -3,7 +3,6 @@ package nl.jurgen.garage.controller;
 import nl.jurgen.garage.model.Car;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
-import nl.jurgen.garage.service.CarService;
 import nl.jurgen.garage.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +44,7 @@ public class ClientController {
     public ResponseEntity<Object> saveClient(@RequestBody RegisterUserRequest registerUserRequest){
         long newId = clientService.saveClient(registerUserRequest);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
+
     }
 
     //Change Client by ID
