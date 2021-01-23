@@ -25,12 +25,10 @@ public class User {
     private String password;
 
 
-//    @Todo hier zit een fout waarschijnlijk van manytomany naar onetomany
-    // bespreken met Nick
-    @OneToMany
-//    @JoinTable (name = "user_role",
-//    joinColumns = @JoinColumn(name = "user_id"),
-//    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany
+    @JoinTable (name = "user_role",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User() {
