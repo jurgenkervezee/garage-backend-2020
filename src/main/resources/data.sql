@@ -30,3 +30,16 @@ INSERT INTO role(name)
 VALUES('ROLE_MODERATOR');
 INSERT INTO role(name)
 VALUES('ROLE_ADMIN');
+INSERT INTO role(name)
+VALUES('ROLE_RECEPTION');
+INSERT INTO role(name)
+VALUES('ROLE_MECHANIC');
+INSERT INTO role(name)
+VALUES('ROLE_WAREHOUSE');
+
+INSERT INTO app_user(email, password, username)
+VALUES
+('reception@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','reception-test'),
+('warehouse@warehouse.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','warehouse-test');
+INSERT INTO user_role(user_id,role_id)
+VALUES(1,4),(2,6);

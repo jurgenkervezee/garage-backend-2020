@@ -20,7 +20,7 @@ public class ClientController {
     private ClientService clientService;
 
     //List all clients
-    @GetMapping(value = "/clients")
+    @GetMapping(value = "/clients/list")
     public ResponseEntity<Object> getClients(){
         List<Client> clients =  clientService.getAllClients();
         return new ResponseEntity<>(clients, HttpStatus.OK);

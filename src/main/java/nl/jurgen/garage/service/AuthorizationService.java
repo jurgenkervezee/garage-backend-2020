@@ -111,6 +111,21 @@ public class AuthorizationService {
                         roles.add(modRole);
 
                         break;
+                    case "reception":
+                        Role receptionRole = roleRepository.findByName(ERole.ROLE_RECEPTION)
+                                .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
+                        roles.add(receptionRole);
+                        break;
+                    case "mechanic":
+                        Role mechanicRole = roleRepository.findByName(ERole.ROLE_MECHANIC)
+                                .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
+                        roles.add(mechanicRole);
+                        break;
+                    case "warehouse":
+                        Role warehouseRole = roleRepository.findByName(ERole.ROLE_WAREHOUSE)
+                                .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
+                        roles.add(warehouseRole);
+                        break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
@@ -131,7 +146,7 @@ public class AuthorizationService {
      *
      * Wanneer de gebruikersnaam/wachtwoord combinatie niet klopt, wordt er een Runtime exception gegooid:
      * 401 Unauthorized. Deze wordt gegooid door
-     * {@link nl.novi.stuivenberg.springboot.example.security.service.security.jwt.AuthEntryPointJwt}
+     * nl.novi.stuivenberg.springboot.example.security.service.security.jwt.AuthEntryPointJwt
      *
      *
      * @param loginRequest De payload met username en password.

@@ -1,5 +1,6 @@
 package nl.jurgen.garage.service.security;
 
+import nl.jurgen.garage.model.ERole;
 import nl.jurgen.garage.service.security.jwt.AuthEntryPointJwt;
 import nl.jurgen.garage.service.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,10 +63,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/api/clients/**").permitAll()
-                .antMatchers("/api/carparts/**").permitAll()
+                .authorizeRequests()
+                    .antMatchers("/api/auth/**").permitAll()
+                    .antMatchers("/api/test/**").permitAll()
+                    .antMatchers("/api/clients/**").hasRole("RECEPTION")
+                    .antMatchers("/api/carparts/**").hasRole("WAREHOUSE")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
