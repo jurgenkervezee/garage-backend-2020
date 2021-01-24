@@ -126,6 +126,11 @@ public class AuthorizationService {
                                 .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
                         roles.add(warehouseRole);
                         break;
+                    case "cashier":
+                        Role cashierRole = roleRepository.findByName(ERole.ROLE_CASHIER)
+                                .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
+                        roles.add(cashierRole);
+                        break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));

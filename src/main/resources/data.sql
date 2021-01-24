@@ -27,19 +27,23 @@ VALUES
 INSERT INTO role(name)
 VALUES('ROLE_USER');
 INSERT INTO role(name)
-VALUES('ROLE_MODERATOR');
-INSERT INTO role(name)
-VALUES('ROLE_ADMIN');
-INSERT INTO role(name)
 VALUES('ROLE_RECEPTION');
 INSERT INTO role(name)
 VALUES('ROLE_MECHANIC');
 INSERT INTO role(name)
 VALUES('ROLE_WAREHOUSE');
+INSERT INTO role(name)
+VALUES('ROLE_CASHIER');
+INSERT INTO role(name)
+VALUES('ROLE_MODERATOR');
+INSERT INTO role(name)
+VALUES('ROLE_ADMIN');
 
 INSERT INTO app_user(email, password, username)
 VALUES
 ('reception@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','reception-test'),
-('warehouse@warehouse.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','warehouse-test');
+('warehouse@warehouse.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','warehouse-test'),
+('mechanic@mechanic.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','mechanic-test'),
+('cashier@cashier.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','cashier-test');
 INSERT INTO user_role(user_id,role_id)
-VALUES(1,4),(2,6);
+VALUES(1,2),(2,4),(3,3),(4,5);

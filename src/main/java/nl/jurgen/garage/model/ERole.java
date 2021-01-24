@@ -12,5 +12,6 @@ public enum ERole {
     ROLE_ADMIN,
     ROLE_RECEPTION,
     ROLE_MECHANIC,
-    ROLE_WAREHOUSE
+    ROLE_WAREHOUSE,
+    ROLE_CASHIER
 }
