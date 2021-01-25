@@ -13,35 +13,35 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/clients")
 public class ClientController {
 
     @Autowired
     private ClientService clientService;
 
     //List all clients
-    @GetMapping(value = "/clients/list")
+    @GetMapping(value = "/list")
     public ResponseEntity<Object> getClients(){
         List<Client> clients =  clientService.getAllClients();
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     //Get client by ID
-    @GetMapping(value = "/clients/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getClient(@PathVariable("id") long id){
         Client client =  clientService.getClientById(id);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     //delete client by ID
-    @DeleteMapping(value = "/clients/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable("id") long id){
         clientService.deleteClient(id);
         return new ResponseEntity<>("Client with ID " + id + " deleted",HttpStatus.NO_CONTENT);
     }
 
     //Post new client and return new ID
-    @PostMapping(value = "/clients")
+    @PostMapping(value = "/")
     public ResponseEntity<Object> saveClient(@RequestBody RegisterUserRequest registerUserRequest){
         long newId = clientService.saveClient(registerUserRequest);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
@@ -56,7 +56,7 @@ public class ClientController {
     }
 
     //Find Client by lastname
-    @GetMapping(value = "/clients/lastname/{lastname}")
+    @GetMapping(value = "/lastname/{lastname}")
     public ResponseEntity<Object> getClientLastName(@PathVariable("lastname") String lastName){
         Client client =  clientService.getClientByLastName(lastName);
         return new ResponseEntity<>(client, HttpStatus.OK);
@@ -70,7 +70,7 @@ public class ClientController {
     }
 
     //Add a new car to a client
-    @PostMapping(value = "/clients/car/{id}")
+    @PostMapping(value = "/car/{id}")
     public ResponseEntity<Object> addCarAndLinkById(@PathVariable long id, @RequestBody Car car){
 
         Client client = clientService.getClientById(id);
