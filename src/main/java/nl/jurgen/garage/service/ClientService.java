@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class ClientService{
 
-    //test
     @Autowired
     ClientRepository clientRepository;
     @Autowired
