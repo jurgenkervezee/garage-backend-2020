@@ -24,24 +24,38 @@ public class CarPartController {
     }
 
     //get a carpart by id
-    @GetMapping(value = "/carparts/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getcarPartById(@PathVariable("id") long id){
         CarPart carPart =  carPartService.getCarPartById(id);
         return new ResponseEntity<>(carPart, HttpStatus.OK);
     }
 
     //update CarpartStockAmount
-    @PutMapping(value = "carparts/{id}/{amount}")
-    public ResponseEntity<Object> updateStockAmount(@PathVariable("id") int id, @PathVariable("amount") int amount){
+    @PutMapping(value = "/updatestock/{id}/{amount}")
+    public ResponseEntity<Object> updateStockAmountById(@PathVariable("id") int id, @PathVariable("amount") int amount){
         carPartService.updateStockAmount(id, amount);
         return new ResponseEntity<>("Voorraad mutatie succesvol doorgevoerd" ,HttpStatus.OK);
     }
+
+    //update carpart by id and body
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Object> updateCarpartById(@PathVariable("id") int id, @RequestBody CarPart carPart){
+        CarPart savedCarPart = carPartService.updateCarpartById(id, carPart);
+        return new ResponseEntity<>(savedCarPart ,HttpStatus.OK);
+    }
+
     //add a new carpart
+    @PostMapping(value = "/")
+    public ResponseEntity<Object> saveCarpart(@RequestBody CarPart carPart){
+        Long newId = carPartService.saveCarpart(carPart);
+        return new ResponseEntity<>(newId, HttpStatus.CREATED);
+    }
 
     //delete Carpart
-
-    //update description of a carpart
-
-    //update a price of a product
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<Object> deleteCarpart(@PathVariable("id") long id){
+        carPartService.deleteCarpart(id);
+        return new ResponseEntity<>("Carpart with ID: " + id + " deleted", HttpStatus.NO_CONTENT);
+    }
 
 }

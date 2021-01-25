@@ -37,7 +37,7 @@ public class ClientController {
     @DeleteMapping(value = "/clients/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable("id") long id){
         clientService.deleteClient(id);
-        return new ResponseEntity<>("Client with ID " + id + " Deleted",HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Client with ID " + id + " deleted",HttpStatus.NO_CONTENT);
     }
 
     //Post new client and return new ID

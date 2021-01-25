@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CarPartService{
+public class CarPartService {
 
     @Autowired
     CarPartRepository carPartRepository;
@@ -21,28 +21,56 @@ public class CarPartService{
 
     public CarPart getCarPartById(long id) {
 
-        if (carPartRepository.existsById(id)){
+        if (carPartRepository.existsById(id)) {
             return carPartRepository.findById(id).orElse(null);
-        }else {
+        } else {
             throw new RecordNotFoundException();
         }
     }
 
     public void updateStockAmount(long id, int amount) {
-        if(carPartRepository.existsById(id) && (amount >= 0)){
-            try{
+        if (carPartRepository.existsById(id) && (amount >= 0)) {
+            try {
                 CarPart carPartWithStockChange = carPartRepository.findById(id).orElse(null);
                 carPartWithStockChange.setStockAmount(amount);
                 carPartRepository.save(carPartWithStockChange);
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw new DatabaseErrorException();
             }
-        }else {
+        } else {
             throw new RecordNotFoundException();
         }
     }
 
-    public CarPart addCarpart(CarPart carPart) {
-        return null;
+
+    public Long saveCarpart(CarPart carPart) {
+
+        return carPartRepository.save(carPart).getId();
+    }
+
+    public void deleteCarpart(long id) {
+        if (carPartRepository.existsById(id)) {
+            carPartRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException();
+        }
+    }
+
+    public CarPart updateCarpartById(long id, CarPart carPart) {
+        if (carPartRepository.existsById(id)) {
+            try {
+                CarPart existingCarPart = carPartRepository.findById(id).orElse(null);
+                existingCarPart.setStockAmount(carPart.getStockAmount());
+                existingCarPart.setDescription(carPart.getDescription());
+                existingCarPart.setPrice(carPart.getPrice());
+                carPartRepository.save(existingCarPart);
+
+                return existingCarPart;
+            } catch (Exception e) {
+                throw new DatabaseErrorException();
+            }
+        } else {
+            throw new RecordNotFoundException();
+        }
     }
 }
