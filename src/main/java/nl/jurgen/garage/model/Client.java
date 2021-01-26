@@ -5,6 +5,8 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "client")
@@ -35,6 +37,9 @@ public class Client {
     @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Car cars;
 
+    @OneToMany(mappedBy="client")
+    private Set<CarInspection> carInspections;
+
     public Client(){
     }
 
@@ -43,6 +48,14 @@ public class Client {
         this.lastName = lastName;
         this.telephoneNumber = telephoneNumber;
         System.out.println("Client created");
+    }
+
+    public Set<CarInspection> getCarInspections() {
+        return carInspections;
+    }
+
+    public void setCarInspections(Set<CarInspection> carInspections) {
+        this.carInspections = carInspections;
     }
 
     public Car getCars() {

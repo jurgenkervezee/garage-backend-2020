@@ -2,12 +2,11 @@ package nl.jurgen.garage.model;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "carinspection")
 public class CarInspection {
 
     @Id
@@ -18,18 +17,32 @@ public class CarInspection {
     @Column(name = "date_inspection")
     private Date date;
 
-    @NotNull
-    @Column(name = "client_id")
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
-
 
     public CarInspection(){
 
     }
 
-    public CarInspection(long id, Date date, Client client) {
+    public CarInspection(long id, Date date) {
         this.id = id;
         this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
         this.client = client;
     }
 }
