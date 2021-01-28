@@ -1,8 +1,10 @@
 package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.model.Car;
+import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
+import nl.jurgen.garage.service.CarinspectionService;
 import nl.jurgen.garage.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,9 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private CarinspectionService carinspectionService;
 
     //List all clients
     @GetMapping(value = "/list")
@@ -79,4 +84,18 @@ public class ClientController {
         return new ResponseEntity<>(carId + " Toegevoegd aan client: " +
                 client.getFirstName() + " " + client.getLastName(), HttpStatus.OK);
     }
+
+    //Get a phonenummer from a client by
+
+    //Get an appointment bij CarinspectionID
+
+
+    //Create an appointment for a carinspection
+    @PostMapping(value = "/appointment")
+    public ResponseEntity<Object> createAppoinment(@RequestBody Carinspection carinspection){
+
+        long newId = carinspectionService.saveAppointment(carinspection);
+        return new ResponseEntity<>(newId, HttpStatus.CREATED);
+    }
+
 }

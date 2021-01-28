@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/inspections")
-public class CarInspectionController {
+public class CarinspectionController {
 
     @Autowired
     private CarinspectionService carinspectionService;
@@ -23,5 +24,13 @@ public class CarInspectionController {
     public ResponseEntity<Object> getAllInspections(){
         List<Carinspection> carinspectionList = carinspectionService.getAllInspections();
         return new ResponseEntity<>(carinspectionList, HttpStatus.OK);
+    }
+
+    // Get an appointment by ID
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object> getInspectionById(@PathVariable long id){
+
+        Carinspection carinspection = carinspectionService.getCarinspectionById(id);
+        return new ResponseEntity<>(carinspection, HttpStatus.OK);
     }
 }

@@ -1,6 +1,8 @@
 package nl.jurgen.garage.service;
 
+import nl.jurgen.garage.exception.RecordNotFoundException;
 import nl.jurgen.garage.model.Carinspection;
+import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.repository.CarinspectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,25 @@ public class CarinspectionService {
     CarinspectionRepository carinspectionRepository;
 
     public List<Carinspection> getAllInspections() {
-        return null;
+
+        List<Carinspection> carinspectionsList= carinspectionRepository.findAll();
+        return carinspectionsList;
+    }
+
+    public Carinspection getCarinspectionById(long id) {
+        if(carinspectionRepository.existsById(id)){
+
+            Carinspection carinspection = carinspectionRepository.findById(id).orElse(null);
+            return carinspection;
+        }else {
+            throw new RecordNotFoundException();
+        }
+    }
+
+    public long saveAppointment(Carinspection carinspection) {
+
+        Carinspection newCarinspection = carinspectionRepository.save(carinspection);
+
+        return newCarinspection.getId();
     }
 }
