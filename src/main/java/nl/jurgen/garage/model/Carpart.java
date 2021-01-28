@@ -1,5 +1,6 @@
 package nl.jurgen.garage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Carpart {
     @Column(name = "price")
     private float price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "carpart")
      Set<Orderline> orderlines;
 

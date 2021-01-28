@@ -36,6 +36,7 @@ public class Client {
     @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Car cars;
 
+    @JsonIgnore
     @OneToMany(mappedBy="client")
     private Set<Carinspection> carinspections;
 
