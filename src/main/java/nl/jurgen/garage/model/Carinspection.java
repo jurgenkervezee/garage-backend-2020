@@ -4,10 +4,11 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "carinspection")
-public class CarInspection {
+public class Carinspection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +22,28 @@ public class CarInspection {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public CarInspection(){
+    @OneToMany(mappedBy = "carinspection")
+    Set<Orderline> orderlines;
+
+    public Carinspection(){
 
     }
 
-    public CarInspection(long id, Date date) {
+    public Carinspection(long id, Date date) {
         this.id = id;
         this.date = date;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Set<Orderline> getOrderlines() {
+        return orderlines;
+    }
+
+    public void setOrderlines(Set<Orderline> orderlines) {
+        this.orderlines = orderlines;
     }
 
     public Date getDate() {

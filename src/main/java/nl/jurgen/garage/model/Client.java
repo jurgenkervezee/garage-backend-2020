@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 
@@ -38,7 +37,7 @@ public class Client {
     private Car cars;
 
     @OneToMany(mappedBy="client")
-    private Set<CarInspection> carInspections;
+    private Set<Carinspection> carinspections;
 
     public Client(){
     }
@@ -50,12 +49,12 @@ public class Client {
         System.out.println("Client created");
     }
 
-    public Set<CarInspection> getCarInspections() {
-        return carInspections;
+    public Set<Carinspection> getCarInspections() {
+        return carinspections;
     }
 
-    public void setCarInspections(Set<CarInspection> carInspections) {
-        this.carInspections = carInspections;
+    public void setCarInspections(Set<Carinspection> carinspections) {
+        this.carinspections = carinspections;
     }
 
     public Car getCars() {

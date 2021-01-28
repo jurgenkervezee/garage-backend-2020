@@ -20,6 +20,10 @@ public class Orderline {
     @JoinColumn(name = "carpart_id")
     Carpart carpart;
 
+    @ManyToOne
+    @JoinColumn(name = "carinspection_id")
+    Carinspection carinspection;
+
 
     public long getId() {
         return id;
@@ -35,6 +39,14 @@ public class Orderline {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public Carinspection getCarinspection() {
+        return carinspection;
+    }
+
+    public void setCarinspection(Carinspection carinspection) {
+        this.carinspection = carinspection;
     }
 
     public Carpart getCarpart() {

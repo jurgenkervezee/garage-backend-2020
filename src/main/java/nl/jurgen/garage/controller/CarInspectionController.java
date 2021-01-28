@@ -1,6 +1,6 @@
 package nl.jurgen.garage.controller;
 
-import nl.jurgen.garage.model.CarInspection;
+import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.service.CarInspectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class CarInspectionController {
     // List available inspections
     @GetMapping(value = "/list")
     public ResponseEntity<Object> getAllInspections(){
-        List<CarInspection> carInspectionList = carInspectionService.getAllInspections();
-        return new ResponseEntity<>(carInspectionList, HttpStatus.OK);
+        List<Carinspection> carinspectionList = carInspectionService.getAllInspections();
+        return new ResponseEntity<>(carinspectionList, HttpStatus.OK);
     }
 }
