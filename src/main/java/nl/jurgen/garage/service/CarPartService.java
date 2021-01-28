@@ -2,7 +2,7 @@ package nl.jurgen.garage.service;
 
 import nl.jurgen.garage.exception.DatabaseErrorException;
 import nl.jurgen.garage.exception.RecordNotFoundException;
-import nl.jurgen.garage.model.CarPart;
+import nl.jurgen.garage.model.Carpart;
 import nl.jurgen.garage.repository.CarPartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ public class CarPartService {
     @Autowired
     CarPartRepository carPartRepository;
 
-    public List<CarPart> getAllCarParts() {
+    public List<Carpart> getAllCarParts() {
         return carPartRepository.findAll();
     }
 
-    public CarPart getCarPartById(long id) {
+    public Carpart getCarPartById(long id) {
 
         if (carPartRepository.existsById(id)) {
             return carPartRepository.findById(id).orElse(null);
@@ -31,9 +31,9 @@ public class CarPartService {
     public void updateStockAmount(long id, int amount) {
         if (carPartRepository.existsById(id) && (amount >= 0)) {
             try {
-                CarPart carPartWithStockChange = carPartRepository.findById(id).orElse(null);
-                carPartWithStockChange.setStockAmount(amount);
-                carPartRepository.save(carPartWithStockChange);
+                Carpart carpartWithStockChange = carPartRepository.findById(id).orElse(null);
+                carpartWithStockChange.setStockAmount(amount);
+                carPartRepository.save(carpartWithStockChange);
             } catch (Exception e) {
                 throw new DatabaseErrorException();
             }
@@ -43,7 +43,7 @@ public class CarPartService {
     }
 
 
-    public Long saveCarpart(CarPart carPart) {
+    public Long saveCarpart(Carpart carPart) {
 
         return carPartRepository.save(carPart).getId();
     }
@@ -56,16 +56,16 @@ public class CarPartService {
         }
     }
 
-    public CarPart updateCarpartById(long id, CarPart carPart) {
+    public Carpart updateCarpartById(long id, Carpart carPart) {
         if (carPartRepository.existsById(id)) {
             try {
-                CarPart existingCarPart = carPartRepository.findById(id).orElse(null);
-                existingCarPart.setStockAmount(carPart.getStockAmount());
-                existingCarPart.setDescription(carPart.getDescription());
-                existingCarPart.setPrice(carPart.getPrice());
-                carPartRepository.save(existingCarPart);
+                Carpart existingCarpart = carPartRepository.findById(id).orElse(null);
+                existingCarpart.setStockAmount(carPart.getStockAmount());
+                existingCarpart.setDescription(carPart.getDescription());
+                existingCarpart.setPrice(carPart.getPrice());
+                carPartRepository.save(existingCarpart);
 
-                return existingCarPart;
+                return existingCarpart;
             } catch (Exception e) {
                 throw new DatabaseErrorException();
             }

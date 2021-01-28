@@ -3,10 +3,11 @@ package nl.jurgen.garage.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "car_part")
-public class CarPart {
+@Table(name = "carpart")
+public class Carpart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +25,20 @@ public class CarPart {
     @Column(name = "price")
     private float price;
 
+    @OneToMany(mappedBy = "carpart")
+     Set<Orderline> orderlines;
+
+    public Set<Orderline> getOrderlines() {
+        return orderlines;
+    }
+
+    public void setOrderlines(Set<Orderline> orderlines) {
+        this.orderlines = orderlines;
+    }
+
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }

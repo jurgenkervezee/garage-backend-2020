@@ -15,7 +15,7 @@ VALUES
 ('23-HG-35','Opel','Zafira', 1),
 ('12-HG-ZZ','Fiat','Multipla', 2);
 
-INSERT INTO car_part (description, price, stock_amount)
+INSERT INTO carpart (description, price, stock_amount)
 VALUES
 ('Stuurhuis', 700.50 , 3),
 ('Luchtfilter', 20.45 , 20),

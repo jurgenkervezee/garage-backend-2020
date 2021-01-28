@@ -1,6 +1,6 @@
 package nl.jurgen.garage.controller;
 
-import nl.jurgen.garage.model.CarPart;
+import nl.jurgen.garage.model.Carpart;
 import nl.jurgen.garage.service.CarPartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,14 +19,14 @@ public class CarPartController {
     //get a listing of all the carparts
     @GetMapping(value = "/list")
     public ResponseEntity<Object> getAllCarParts(){
-        List<CarPart> carparts = carPartService.getAllCarParts();
+        List<Carpart> carparts = carPartService.getAllCarParts();
         return new ResponseEntity<>(carparts, HttpStatus.OK);
     }
 
     //get a carpart by id
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getcarPartById(@PathVariable("id") long id){
-        CarPart carPart =  carPartService.getCarPartById(id);
+        Carpart carPart =  carPartService.getCarPartById(id);
         return new ResponseEntity<>(carPart, HttpStatus.OK);
     }
 
@@ -39,14 +39,14 @@ public class CarPartController {
 
     //update carpart by id and body
     @PutMapping(value = "/update/{id}")
-    public ResponseEntity<Object> updateCarpartById(@PathVariable("id") int id, @RequestBody CarPart carPart){
-        CarPart savedCarPart = carPartService.updateCarpartById(id, carPart);
-        return new ResponseEntity<>(savedCarPart ,HttpStatus.OK);
+    public ResponseEntity<Object> updateCarpartById(@PathVariable("id") int id, @RequestBody Carpart carPart){
+        Carpart savedCarpart = carPartService.updateCarpartById(id, carPart);
+        return new ResponseEntity<>(savedCarpart,HttpStatus.OK);
     }
 
     //add a new carpart
     @PostMapping(value = "/")
-    public ResponseEntity<Object> saveCarpart(@RequestBody CarPart carPart){
+    public ResponseEntity<Object> saveCarpart(@RequestBody Carpart carPart){
         Long newId = carPartService.saveCarpart(carPart);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
     }
