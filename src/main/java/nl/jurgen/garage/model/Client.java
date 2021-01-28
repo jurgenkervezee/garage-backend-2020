@@ -37,7 +37,7 @@ public class Client {
     private Car cars;
 
     @JsonIgnore
-    @OneToMany(mappedBy="client")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="client")
     private Set<Carinspection> carinspections;
 
     public Client(){
@@ -50,11 +50,12 @@ public class Client {
         System.out.println("Client created");
     }
 
-    public Set<Carinspection> getCarInspections() {
+
+    public Set<Carinspection> getCarinspections() {
         return carinspections;
     }
 
-    public void setCarInspections(Set<Carinspection> carinspections) {
+    public void setCarinspections(Set<Carinspection> carinspections) {
         this.carinspections = carinspections;
     }
 

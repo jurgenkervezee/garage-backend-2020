@@ -24,6 +24,8 @@ VALUES
 ('lamp neon', 38.65 , 8),
 ('Riem', 32.95 , 6);
 
+
+
 INSERT INTO role(name)
 VALUES('ROLE_USER');
 INSERT INTO role(name)

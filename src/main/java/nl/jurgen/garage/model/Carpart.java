@@ -27,8 +27,9 @@ public class Carpart {
     private float price;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "carpart")
-     Set<Orderline> orderlines;
+    @OneToMany(fetch=FetchType.LAZY,
+            mappedBy = "carpart")
+    Set<Orderline> orderlines;
 
     public Set<Orderline> getOrderlines() {
         return orderlines;

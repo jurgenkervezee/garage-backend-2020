@@ -1,7 +1,7 @@
 package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.model.Carpart;
-import nl.jurgen.garage.service.CarPartService;
+import nl.jurgen.garage.service.CarpartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class CarPartController {
 
     @Autowired
-    private CarPartService carPartService;
+    private CarpartService carPartService;
 
     //get a listing of all the carparts
     @GetMapping(value = "/list")

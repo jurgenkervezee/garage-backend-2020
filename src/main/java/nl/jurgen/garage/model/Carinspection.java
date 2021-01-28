@@ -19,12 +19,15 @@ public class Carinspection {
     @Column(name = "date_inspection")
     private Date date;
 
+
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "client_id")
     private Client client;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "carinspection")
+    @OneToMany(fetch=FetchType.LAZY,
+            mappedBy = "carinspection")
     Set<Orderline> orderlines;
 
     public Carinspection(){
