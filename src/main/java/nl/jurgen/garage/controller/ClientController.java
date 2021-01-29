@@ -91,11 +91,11 @@ public class ClientController {
 
 
     //Create an appointment for a carinspection
-    @PostMapping(value = "/appointment")
-    public ResponseEntity<Object> createAppoinment(@RequestBody Carinspection carinspection){
+    @PostMapping(value = "/appointment/{id}")
+    public ResponseEntity<Object> createAppointment(@RequestBody Carinspection carinspection){
 
         long newId = carinspectionService.saveAppointment(carinspection);
+
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
     }
-
 }

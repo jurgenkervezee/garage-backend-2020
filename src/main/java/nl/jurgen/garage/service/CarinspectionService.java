@@ -32,7 +32,9 @@ public class CarinspectionService {
     }
 
     public long saveAppointment(Carinspection carinspection) {
-
+        //hier adhv client id client ophalen
+        //setCarinspection op client
+        //sla client op
         Carinspection newCarinspection = carinspectionRepository.save(carinspection);
 
         return newCarinspection.getId();
