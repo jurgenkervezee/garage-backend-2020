@@ -4,16 +4,21 @@ import nl.jurgen.garage.exception.RecordNotFoundException;
 import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.repository.CarinspectionRepository;
+import nl.jurgen.garage.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CarinspectionService {
 
     @Autowired
     CarinspectionRepository carinspectionRepository;
+
+    @Autowired
+    ClientRepository clientRepository;
 
     public List<Carinspection> getAllInspections() {
 
@@ -31,12 +36,21 @@ public class CarinspectionService {
         }
     }
 
-    public long saveAppointment(Carinspection carinspection) {
-        //hier adhv client id client ophalen
-        //setCarinspection op client
-        //sla client op
-        Carinspection newCarinspection = carinspectionRepository.save(carinspection);
+    public long saveAppointment(long clientId, Carinspection carinspection) {
 
-        return newCarinspection.getId();
+        if(clientRepository.existsById(clientId)){
+
+            Client client = clientRepository.findById(clientId).orElse(null);
+
+            Set<Carinspection> carinspectionSet = client.getCarinspections();
+            carinspectionSet.add(carinspection);
+            client.setCarinspections(carinspectionSet);
+
+            carinspection.setClient(client);
+            carinspectionRepository.save(carinspection);
+            return clientId;
+        }else {
+            throw new RecordNotFoundException();
+        }
     }
 }

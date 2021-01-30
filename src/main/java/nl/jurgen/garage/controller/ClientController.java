@@ -90,12 +90,12 @@ public class ClientController {
     //Get an appointment bij CarinspectionID
 
 
-    //Create an appointment for a carinspection
+    //Create an appointment for a carinspection using a date and the client id
     @PostMapping(value = "/appointment/{id}")
-    public ResponseEntity<Object> createAppointment(@RequestBody Carinspection carinspection){
+    public ResponseEntity<Object> createAppointment(@PathVariable long id, @RequestBody Carinspection carinspection){
 
-        long newId = carinspectionService.saveAppointment(carinspection);
+        long clientId = carinspectionService.saveAppointment(id, carinspection);
 
-        return new ResponseEntity<>(newId, HttpStatus.CREATED);
+        return new ResponseEntity<>(clientId, HttpStatus.CREATED);
     }
 }
