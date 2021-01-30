@@ -40,12 +40,15 @@ public class CarinspectionService {
 
         if(clientRepository.existsById(clientId)){
 
+
             Client client = clientRepository.findById(clientId).orElse(null);
+
+//            @Todo make a validation to give an errormessage if the same date and client is sent in
+//            System.out.println(carinspectionRepository.findByClientAndDate(client, carinspection.getDate()));
 
             Set<Carinspection> carinspectionSet = client.getCarinspections();
             carinspectionSet.add(carinspection);
             client.setCarinspections(carinspectionSet);
-
             carinspection.setClient(client);
             carinspectionRepository.save(carinspection);
             return clientId;
