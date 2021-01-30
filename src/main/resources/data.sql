@@ -25,11 +25,10 @@ VALUES
 ('Riem', 32.95 , 6);
 
 
-INSERT INTO carinspection(date_inspection, client_id)
+INSERT INTO carinspection(date_inspection, status,client_id)
 VALUES
-(TO_DATE('01/02/2021','DD/MM/YYYY'),1),
-(TO_DATE('01/03/2021','DD/MM/YYYY'),2);
-
+(TO_DATE('01/02/2021','DD/MM/YYYY'), 1,1),
+(TO_DATE('01/03/2021','DD/MM/YYYY'), 1,2);
 
 INSERT INTO role(name)
 VALUES('ROLE_USER');

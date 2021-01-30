@@ -68,9 +68,10 @@ public class ClientController {
     }
 
     //Get car from client
-    @GetMapping(value = "/clients/car/{id}")
+    @GetMapping(value = "/car/{id}")
     public ResponseEntity<Object> getClientCarById(@PathVariable("id") long id){
-        Car car = clientService.getCarById(id);
+        Client client = clientService.getClientById(id);
+        Car car = client.getCars();
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
@@ -80,7 +81,6 @@ public class ClientController {
 
         Client client = clientService.getClientById(id);
         long carId = clientService.saveCarById(id, car);
-
         return new ResponseEntity<>(carId + " Toegevoegd aan client: " +
                 client.getFirstName() + " " + client.getLastName(), HttpStatus.OK);
     }
@@ -95,7 +95,6 @@ public class ClientController {
     public ResponseEntity<Object> createAppointment(@PathVariable long id, @RequestBody Carinspection carinspection){
 
         long clientId = carinspectionService.saveAppointment(id, carinspection);
-
         return new ResponseEntity<>(clientId, HttpStatus.CREATED);
     }
 }

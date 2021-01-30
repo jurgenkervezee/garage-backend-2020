@@ -3,7 +3,9 @@ package nl.jurgen.garage.service;
 import nl.jurgen.garage.exception.DuplicateRecordInDatabase;
 import nl.jurgen.garage.exception.RecordNotFoundException;
 import nl.jurgen.garage.model.Carinspection;
+import nl.jurgen.garage.model.Carpart;
 import nl.jurgen.garage.model.Client;
+import nl.jurgen.garage.model.Orderline;
 import nl.jurgen.garage.repository.CarinspectionRepository;
 import nl.jurgen.garage.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +59,20 @@ public class CarinspectionService {
         }else {
             throw new RecordNotFoundException();
         }
+    }
+
+    public void addCarpartToOrderline(long id, Carpart carpart, int amount) {
+
+        Carinspection carinspection = carinspectionRepository.findById(id).orElse(null);
+        Set<Orderline> orderlines = null;
+
+        if(!carinspection.getOrderlines().isEmpty()) {
+            orderlines = carinspection.getOrderlines();
+        }
+
+        orderlines.add(new Orderline(amount, carpart));
+        carinspection.setOrderlines(orderlines);
+        carinspectionRepository.save(carinspection);
+
     }
 }

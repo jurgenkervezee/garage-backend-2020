@@ -1,14 +1,12 @@
 package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.model.Carinspection;
+import nl.jurgen.garage.model.Carpart;
 import nl.jurgen.garage.service.CarinspectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,4 +31,15 @@ public class CarinspectionController {
         Carinspection carinspection = carinspectionService.getCarinspectionById(id);
         return new ResponseEntity<>(carinspection, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/{}id")
+    public ResponseEntity<Object> addCarpartsToCarinspection(@PathVariable long id,
+                                                             @RequestBody Carpart carpart,
+                                                             int amount){
+        carinspectionService.addCarpartToOrderline(id, carpart, amount);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package nl.jurgen.garage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -9,21 +10,27 @@ import javax.persistence.*;
 public class Orderline {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotNull
     @Column(name = "amount")
     private int amount;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "carpart_id")
     Carpart carpart;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "carinspection_id")
     Carinspection carinspection;
 
+    public Orderline(int amount, Carpart carpart) {
+        this.amount = amount;
+        this.carpart = carpart;
+    }
 
     public long getId() {
         return id;

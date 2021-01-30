@@ -19,9 +19,13 @@ public class Carinspection {
     @Column(name = "date_inspection")
     private Date date;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @Column(name = "status")
+    private EStatus eStatus;
 
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,
@@ -32,9 +36,25 @@ public class Carinspection {
 
     }
 
-    public Carinspection(long id, Date date) {
+    public Carinspection(long id, Date date, EStatus status) {
         this.id = id;
         this.date = date;
+        this.eStatus = status;
+        seteStatus(EStatus.OPEN);
+    }
+
+    public Orderline addCarpartToCarinspection(Carpart carpart, int amount){
+
+        Orderline orderline = new Orderline(amount, carpart);
+        return orderline;
+    }
+
+    public EStatus geteStatus() {
+        return eStatus;
+    }
+
+    public void seteStatus(EStatus eStatus) {
+        this.eStatus = eStatus;
     }
 
     public long getId() {

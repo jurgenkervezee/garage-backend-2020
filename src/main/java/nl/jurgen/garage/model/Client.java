@@ -27,16 +27,14 @@ public class Client {
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
-    @JsonIgnore
+
     @OneToOne(fetch=FetchType.LAZY,
             mappedBy="client")
     private Address address;
 
-    @JsonIgnore
     @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Car cars;
 
-    @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,mappedBy="client")
     private Set<Carinspection> carinspections;
 
