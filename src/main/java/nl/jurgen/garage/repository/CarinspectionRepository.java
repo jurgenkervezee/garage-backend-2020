@@ -8,6 +8,7 @@ import java.util.Date;
 
 public interface CarinspectionRepository extends JpaRepository <Carinspection, Long >{
 
-    Carinspection findByClientAndDate(Client client, Date date);
-    Carinspection existsByDateAndClient(Client client, Date date);
+    boolean existsByClientId(long id);
+    boolean existsByDate(Date date);
+    boolean existsByClientIdAndAndDate(long id, Date date);
 }

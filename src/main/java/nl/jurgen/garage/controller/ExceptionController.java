@@ -1,6 +1,7 @@
 package nl.jurgen.garage.controller;
 
 
+import nl.jurgen.garage.exception.DuplicateRecordInDatabase;
 import nl.jurgen.garage.exception.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,10 @@ public class ExceptionController {
     @ExceptionHandler(value = RecordNotFoundException.class)
     public ResponseEntity<Object> exception(RecordNotFoundException exception){
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = DuplicateRecordInDatabase.class)
+    public ResponseEntity<Object> exception(DuplicateRecordInDatabase exception){
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 }

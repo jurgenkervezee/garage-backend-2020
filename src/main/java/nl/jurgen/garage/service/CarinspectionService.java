@@ -1,5 +1,6 @@
 package nl.jurgen.garage.service;
 
+import nl.jurgen.garage.exception.DuplicateRecordInDatabase;
 import nl.jurgen.garage.exception.RecordNotFoundException;
 import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Client;
@@ -8,6 +9,7 @@ import nl.jurgen.garage.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -40,18 +42,18 @@ public class CarinspectionService {
 
         if(clientRepository.existsById(clientId)){
 
-
             Client client = clientRepository.findById(clientId).orElse(null);
 
-//            @Todo make a validation to give an errormessage if the same date and client is sent in
-//            System.out.println(carinspectionRepository.findByClientAndDate(client, carinspection.getDate()));
-
-            Set<Carinspection> carinspectionSet = client.getCarinspections();
-            carinspectionSet.add(carinspection);
-            client.setCarinspections(carinspectionSet);
-            carinspection.setClient(client);
-            carinspectionRepository.save(carinspection);
-            return clientId;
+             if(!carinspectionRepository.existsByClientIdAndAndDate(clientId, carinspection.getDate())){
+                 Set<Carinspection> carinspectionSet = client.getCarinspections();
+                 carinspectionSet.add(carinspection);
+                 client.setCarinspections(carinspectionSet);
+                 carinspection.setClient(client);
+                 carinspectionRepository.save(carinspection);
+                 return clientId;
+             } else {
+                 throw new DuplicateRecordInDatabase();
+                }
         }else {
             throw new RecordNotFoundException();
         }
