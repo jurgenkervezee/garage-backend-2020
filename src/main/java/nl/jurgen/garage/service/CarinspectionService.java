@@ -6,8 +6,10 @@ import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Carpart;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.model.Orderline;
+import nl.jurgen.garage.repository.CarPartRepository;
 import nl.jurgen.garage.repository.CarinspectionRepository;
 import nl.jurgen.garage.repository.ClientRepository;
+import nl.jurgen.garage.repository.OrderlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +26,15 @@ public class CarinspectionService {
     @Autowired
     ClientRepository clientRepository;
 
+    @Autowired
+    CarPartRepository carPartRepository;
+
+    @Autowired
+    OrderlineRepository orderlineRepository;
+
     public List<Carinspection> getAllInspections() {
 
-        List<Carinspection> carinspectionsList= carinspectionRepository.findAll();
+        List<Carinspection> carinspectionsList = carinspectionRepository.findAll();
         return carinspectionsList;
     }
 
@@ -61,18 +69,16 @@ public class CarinspectionService {
         }
     }
 
-    public void addCarpartToOrderline(long id, Carpart carpart, int amount) {
+    public void addCarpartToOrderline(long carinspectionId, long carpartId, int carpartAmount ) {
 
-        Carinspection carinspection = carinspectionRepository.findById(id).orElse(null);
-        Set<Orderline> orderlines = null;
+        Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
+        Carpart carpart = carPartRepository.findById(carpartId).orElse(null);
 
-        if(!carinspection.getOrderlines().isEmpty()) {
-            orderlines = carinspection.getOrderlines();
-        }
+        Orderline orderline = new Orderline(carpart, carpartAmount);
 
-        orderlines.add(new Orderline(amount, carpart));
-        carinspection.setOrderlines(orderlines);
+        carinspection.addOrderline(orderline);
         carinspectionRepository.save(carinspection);
+        orderlineRepository.save(orderline);
 
     }
 }

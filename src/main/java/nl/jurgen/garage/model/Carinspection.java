@@ -43,10 +43,10 @@ public class Carinspection {
         seteStatus(EStatus.OPEN);
     }
 
-    public Orderline addCarpartToCarinspection(Carpart carpart, int amount){
+    public void addCarpartToCarinspection(Carpart carpart, int amount){
 
-        Orderline orderline = new Orderline(amount, carpart);
-        return orderline;
+        Orderline orderline = new Orderline(carpart, amount);
+        orderlines.add(orderline);
     }
 
     public EStatus geteStatus() {
@@ -83,5 +83,9 @@ public class Carinspection {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public void addOrderline(Orderline orderline) {
+        orderlines.add(orderline);
     }
 }

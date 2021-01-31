@@ -1,7 +1,6 @@
 package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.model.Carinspection;
-import nl.jurgen.garage.model.Carpart;
 import nl.jurgen.garage.service.CarinspectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,11 +31,12 @@ public class CarinspectionController {
         return new ResponseEntity<>(carinspection, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{}id")
-    public ResponseEntity<Object> addCarpartsToCarinspection(@PathVariable long id,
-                                                             @RequestBody Carpart carpart,
-                                                             int amount){
-        carinspectionService.addCarpartToOrderline(id, carpart, amount);
+    @PostMapping(value = "/{carinspectionId}/carpart/{carpartId}/amount/{amount}")
+    public ResponseEntity<Object> addCarpartsToCarinspection(@PathVariable long carinspectionId,
+                                                             @PathVariable long carpartId,
+                                                             @PathVariable int amount){
+
+        carinspectionService.addCarpartToOrderline(carinspectionId, carpartId, amount);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

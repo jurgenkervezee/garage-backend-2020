@@ -27,9 +27,12 @@ public class Orderline {
     @JoinColumn(name = "carinspection_id")
     Carinspection carinspection;
 
-    public Orderline(int amount, Carpart carpart) {
-        this.amount = amount;
+    public Orderline(){
+    }
+
+    public Orderline(Carpart carpart, int amount) {
         this.carpart = carpart;
+        this.amount = amount;
     }
 
     public long getId() {
