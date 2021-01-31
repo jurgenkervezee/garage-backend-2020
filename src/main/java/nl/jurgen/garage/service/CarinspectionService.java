@@ -78,7 +78,9 @@ public class CarinspectionService {
 
         carinspection.addOrderline(orderline);
         carinspectionRepository.save(carinspection);
+        orderline.setCarinspection(carinspection);
         orderlineRepository.save(orderline);
+
 
     }
 }

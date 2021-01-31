@@ -66,4 +66,5 @@ public class Orderline {
     public void setCarpart(Carpart carpart) {
         this.carpart = carpart;
     }
+
 }
