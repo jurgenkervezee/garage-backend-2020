@@ -28,6 +28,7 @@ VALUES
 INSERT INTO carinspection(date_inspection, status,client_id)
 VALUES
 (TO_DATE('01/02/2021','DD/MM/YYYY'), 1,1),
+(TO_DATE('15/02/2021','DD/MM/YYYY'), 1,3),
 (TO_DATE('01/03/2021','DD/MM/YYYY'), 1,2);
 
 INSERT INTO role(name)

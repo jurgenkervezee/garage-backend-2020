@@ -14,7 +14,6 @@ import nl.jurgen.garage.repository.OrderlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -35,15 +34,13 @@ public class CarinspectionService {
 
     public List<Carinspection> getAllInspections() {
 
-        List<Carinspection> carinspectionsList = carinspectionRepository.findAll();
-        return carinspectionsList;
+        return carinspectionRepository.findAll();
     }
 
     public Carinspection getCarinspectionById(long id) {
         if(carinspectionRepository.existsById(id)){
 
-            Carinspection carinspection = carinspectionRepository.findById(id).orElse(null);
-            return carinspection;
+            return carinspectionRepository.findById(id).orElse(null);
         }else {
             throw new RecordNotFoundException();
         }
@@ -99,5 +96,12 @@ public class CarinspectionService {
         carinspectionRepository.save(carinspection);
         orderline.setCarinspection(carinspection);
         orderlineRepository.save(orderline);
+    }
+
+    public Client getClientByCarinspectionId(long carinspectionId){
+
+         Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
+
+        return clientRepository.findById(carinspection.getClient().getId()).orElse(null);
     }
 }

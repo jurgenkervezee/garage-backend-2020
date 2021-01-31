@@ -1,8 +1,11 @@
 package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.model.Carinspection;
+import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
+import nl.jurgen.garage.repository.ClientRepository;
 import nl.jurgen.garage.service.CarinspectionService;
+import nl.jurgen.garage.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,10 @@ public class CarinspectionController {
 
     @Autowired
     private CarinspectionService carinspectionService;
+
+    @Autowired
+    private ClientService clientService;
+
 
     // List available inspections
     @GetMapping(value = "/list")
@@ -31,6 +38,8 @@ public class CarinspectionController {
         Carinspection carinspection = carinspectionService.getCarinspectionById(id);
         return new ResponseEntity<>(carinspection, HttpStatus.OK);
     }
+
+
 
     @PostMapping(value = "/{carinspectionId}/carpart/{carpartId}/amount/{amount}")
     public ResponseEntity<Object> addCarpartsToCarinspection(@PathVariable long carinspectionId,
@@ -49,6 +58,13 @@ public class CarinspectionController {
         carinspectionService.addCustomActivityToOrderline(carinspectionId, orderlineCustomRequest);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/clientdetails/{carinspectionId}")
+    public ResponseEntity<Object> getClientDetailsByCarinspectionId(@PathVariable long carinspectionId){
+
+        Client client = carinspectionService.getClientByCarinspectionId(carinspectionId);
+        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
 

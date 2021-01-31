@@ -2,10 +2,7 @@ package nl.jurgen.garage.service;
 
 import nl.jurgen.garage.exception.DatabaseErrorException;
 import nl.jurgen.garage.exception.RecordNotFoundException;
-import nl.jurgen.garage.model.Address;
-import nl.jurgen.garage.model.Car;
-import nl.jurgen.garage.model.Client;
-import nl.jurgen.garage.model.ClientBuilder;
+import nl.jurgen.garage.model.*;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
 import nl.jurgen.garage.repository.AddressRepository;
 import nl.jurgen.garage.repository.CarRepository;
@@ -107,4 +104,5 @@ public class ClientService{
 
         }else throw new RecordNotFoundException();
     }
+
 }
