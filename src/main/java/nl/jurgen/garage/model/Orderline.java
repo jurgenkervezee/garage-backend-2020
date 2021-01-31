@@ -2,6 +2,7 @@ package nl.jurgen.garage.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
 
 import javax.persistence.*;
 
@@ -16,6 +17,12 @@ public class Orderline {
     @NotNull
     @Column(name = "amount")
     private int amount;
+
+    @Column
+    private double price;
+
+    @Column
+    private String description;
 
     @JsonIgnore
     @ManyToOne
@@ -33,6 +40,14 @@ public class Orderline {
     public Orderline(Carpart carpart, int amount) {
         this.carpart = carpart;
         this.amount = amount;
+        price = carpart.getPrice();
+        description = carpart.getDescription();
+    }
+
+    public Orderline(OrderlineCustomRequest orderlineCustomRequest){
+        this.amount = orderlineCustomRequest.getAmount();
+        this.description = orderlineCustomRequest.getDescription();
+        this.price = orderlineCustomRequest.getPrice();
     }
 
     public long getId() {

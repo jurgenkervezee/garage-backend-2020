@@ -24,7 +24,7 @@ public class Carpart {
 
     @NotNull
     @Column(name = "price")
-    private float price;
+    private double price;
 
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,
@@ -62,11 +62,11 @@ public class Carpart {
         this.stockAmount = stockAmount;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

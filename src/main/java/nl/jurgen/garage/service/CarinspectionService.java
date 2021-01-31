@@ -6,6 +6,7 @@ import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Carpart;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.model.Orderline;
+import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
 import nl.jurgen.garage.repository.CarPartRepository;
 import nl.jurgen.garage.repository.CarinspectionRepository;
 import nl.jurgen.garage.repository.ClientRepository;
@@ -76,11 +77,27 @@ public class CarinspectionService {
 
         Orderline orderline = new Orderline(carpart, carpartAmount);
 
+        if (carinspection != null) {
+            saveOrderlineToDbase(carinspection, orderline);
+        }
+
+    }
+
+    public void addCustomActivityToOrderline(long carinspectionId, OrderlineCustomRequest orderlineCustomRequest) {
+
+        Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
+        Orderline orderline = new Orderline(orderlineCustomRequest);
+
+        if (carinspection != null) {
+            saveOrderlineToDbase(carinspection, orderline);
+        }
+    }
+
+    public void saveOrderlineToDbase(Carinspection carinspection, Orderline orderline){
+
         carinspection.addOrderline(orderline);
         carinspectionRepository.save(carinspection);
         orderline.setCarinspection(carinspection);
         orderlineRepository.save(orderline);
-
-
     }
 }

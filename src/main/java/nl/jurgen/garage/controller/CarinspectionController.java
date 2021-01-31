@@ -1,6 +1,7 @@
 package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.model.Carinspection;
+import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
 import nl.jurgen.garage.service.CarinspectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,15 @@ public class CarinspectionController {
                                                              @PathVariable int amount){
 
         carinspectionService.addCarpartToOrderline(carinspectionId, carpartId, amount);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{carinspectionId}/custom")
+    public ResponseEntity<Object> addCustomActivityToOrderline(@PathVariable long carinspectionId,
+                                                               @RequestBody OrderlineCustomRequest orderlineCustomRequest){
+
+        carinspectionService.addCustomActivityToOrderline(carinspectionId, orderlineCustomRequest);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
