@@ -38,19 +38,18 @@ public class ClientController {
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
-    //delete client by ID
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteClient(@PathVariable("id") long id){
-        clientService.deleteClient(id);
-        return new ResponseEntity<>("Client with ID " + id + " deleted",HttpStatus.NO_CONTENT);
-    }
-
     //Post new client and return new ID
     @PostMapping(value = "/")
     public ResponseEntity<Object> saveClient(@RequestBody RegisterUserRequest registerUserRequest){
         long newId = clientService.saveClient(registerUserRequest);
         return new ResponseEntity<>(newId, HttpStatus.CREATED);
+    }
 
+    //delete client by ID
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Object> deleteClient(@PathVariable("id") long id){
+        clientService.deleteClient(id);
+        return new ResponseEntity<>("Client with ID " + id + " deleted",HttpStatus.NO_CONTENT);
     }
 
     //Change Client by ID
@@ -81,11 +80,9 @@ public class ClientController {
 
         Client client = clientService.getClientById(id);
         long carId = clientService.saveCarById(id, car);
-        return new ResponseEntity<>(carId + " Toegevoegd aan client: " +
-                client.getFirstName() + " " + client.getLastName(), HttpStatus.OK);
+        return new ResponseEntity<>("CarId: " + carId + " Toegevoegd aan client: " +
+                client.getFirstName() + " " + client.getLastName(), HttpStatus.CREATED);
     }
-
-    //Get a phonenummer from a client by
 
     //Get an appointment bij CarinspectionID
 

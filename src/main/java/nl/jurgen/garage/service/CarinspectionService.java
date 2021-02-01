@@ -101,7 +101,6 @@ public class CarinspectionService {
     public Client getClientByCarinspectionId(long carinspectionId){
 
          Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
-
         return clientRepository.findById(carinspection.getClient().getId()).orElse(null);
     }
 }
