@@ -8,7 +8,5 @@ import java.util.Date;
 
 public interface CarinspectionRepository extends JpaRepository <Carinspection, Long >{
 
-    boolean existsByClientId(long id);
-    boolean existsByDate(Date date);
     boolean existsByClientIdAndAndDate(long id, Date date);
 }
