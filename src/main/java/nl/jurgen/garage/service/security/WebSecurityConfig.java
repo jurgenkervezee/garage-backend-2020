@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Hier gebruiken we de EnableGlobalMethodSecurity(prePostIsEnabled = true) om de @PreAuthorize annotaties te gebruiken
@@ -68,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/auth/**").permitAll()
                     .antMatchers("/api/test/**").permitAll()
                     .antMatchers("/api/clients/**").hasRole("RECEPTION")
+                    .antMatchers("/api/uploads/**").hasRole("RECEPTION")
                     .antMatchers("/api/inspections/**").hasRole("MECHANIC")
                     .antMatchers("/api/carparts/**").hasRole("WAREHOUSE")
                     .antMatchers("/api/payment/**").hasRole("CASHIER")
