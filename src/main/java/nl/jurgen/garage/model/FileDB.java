@@ -1,5 +1,6 @@
 package nl.jurgen.garage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,6 +18,12 @@ public class FileDB {
 
     private String type;
 
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
+
+    @JsonIgnore
     @Lob
     private byte[] data;
 
@@ -35,6 +42,14 @@ public class FileDB {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public String getName() {

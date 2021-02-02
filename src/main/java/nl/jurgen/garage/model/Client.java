@@ -32,6 +32,9 @@ public class Client {
             mappedBy="client")
     private Address address;
 
+    @OneToOne(mappedBy = "client")
+    private FileDB fileDB;
+
     @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Car cars;
 
@@ -48,6 +51,13 @@ public class Client {
         System.out.println("Client created");
     }
 
+    public FileDB getFileDB() {
+        return fileDB;
+    }
+
+    public void setFileDB(FileDB fileDB) {
+        this.fileDB = fileDB;
+    }
 
     public Set<Carinspection> getCarinspections() {
         return carinspections;
