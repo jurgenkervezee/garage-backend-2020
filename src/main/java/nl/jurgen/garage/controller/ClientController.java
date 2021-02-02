@@ -3,16 +3,23 @@ package nl.jurgen.garage.controller;
 import nl.jurgen.garage.model.Car;
 import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Client;
+import nl.jurgen.garage.model.FileDB;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
+import nl.jurgen.garage.payload.response.ResponseFile;
+import nl.jurgen.garage.payload.response.ResponseMessage;
 import nl.jurgen.garage.service.CarinspectionService;
 import nl.jurgen.garage.service.ClientService;
+import nl.jurgen.garage.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -23,6 +30,9 @@ public class ClientController {
 
     @Autowired
     private CarinspectionService carinspectionService;
+
+    @Autowired
+    private FileStorageService storageService;
 
     //List all clients
     @GetMapping(value = "/list")
@@ -93,5 +103,32 @@ public class ClientController {
 
         long clientId = carinspectionService.saveAppointment(id, carinspection);
         return new ResponseEntity<>(clientId, HttpStatus.CREATED);
+    }
+
+    // upload clients documents using client_id
+    @PostMapping("/upload/clientid/{id}")
+    public ResponseEntity<ResponseMessage> uploadFile(@PathVariable long id, @RequestParam("file") MultipartFile file) {
+
+        String message = "";
+        try {
+            storageService.store(file, id);
+
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    // TODO Get file by File_ID nog ombouwen naar CLIENT_ID
+    @GetMapping("/files/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+        FileDB fileDB = storageService.getFile(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
+                .body(fileDB.getData());
     }
 }
