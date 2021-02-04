@@ -1,5 +1,6 @@
 package nl.jurgen.garage.service;
 
+import nl.jurgen.garage.exception.RecordNotFoundException;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.model.FileDB;
 import nl.jurgen.garage.repository.ClientRepository;
@@ -34,12 +35,19 @@ public class FileStorageService {
         return fileDBRepository.save(fileDB);
     }
 
-    public FileDB getFile(String id) {
-
-        boolean present = fileDBRepository.existsById(id);
-
+    public FileDB getFileById(String id){
 
         return fileDBRepository.findById(id).get();
+    }
+    public FileDB getFile(long id) {
+
+        if(fileDBRepository.existsByClient_Id(id)) {
+
+            return fileDBRepository.findByClient_Id(id);
+
+        }else{
+            throw new RecordNotFoundException();
+        }
     }
 
 }

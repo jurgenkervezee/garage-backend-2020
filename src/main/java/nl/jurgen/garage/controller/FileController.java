@@ -23,23 +23,23 @@ public class FileController {
     @Autowired
     private FileStorageService storageService;
 
-    // upload clients documents using client id
-    @PostMapping("/upload/{id}")
-    public ResponseEntity<ResponseMessage> uploadFile(@PathVariable long id,
-                                                      @RequestParam("file") MultipartFile file) {
-
-        String message = "";
-        try {
-            storageService.store(file, id);
-
-            message = "Uploaded the file successfully: " + file.getOriginalFilename();
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-
-        } catch (Exception e) {
-            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-        }
-    }
+//    // upload clients documents using client id
+//    @PostMapping("/upload/{id}")
+//    public ResponseEntity<ResponseMessage> uploadFile(@PathVariable long id,
+//                                                      @RequestParam("file") MultipartFile file) {
+//
+//        String message = "";
+//        try {
+//            storageService.store(file, id);
+//
+//            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+//            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+//
+//        } catch (Exception e) {
+//            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+//            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+//        }
+//    }
 
 //    @GetMapping("/files")
 //    public ResponseEntity<List<ResponseFile>> getListFiles() {
@@ -61,7 +61,7 @@ public class FileController {
 //    }
 
     @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+    public ResponseEntity<byte[]> getFileById(@PathVariable long id) {
         FileDB fileDB = storageService.getFile(id);
 
         return ResponseEntity.ok()
