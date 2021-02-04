@@ -123,7 +123,7 @@ public class ClientController {
     }
 
     // TODO Get file by File_ID nog ombouwen naar CLIENT_ID
-    @GetMapping("/files/{id}")
+    @GetMapping("/download/clientid/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = storageService.getFile(id);
 

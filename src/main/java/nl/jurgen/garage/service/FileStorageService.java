@@ -35,6 +35,10 @@ public class FileStorageService {
     }
 
     public FileDB getFile(String id) {
+
+        boolean present = fileDBRepository.existsById(id);
+
+
         return fileDBRepository.findById(id).get();
     }
 
