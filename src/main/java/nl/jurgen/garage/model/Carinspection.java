@@ -2,6 +2,7 @@ package nl.jurgen.garage.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,8 +25,10 @@ public class Carinspection {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @Column(name = "status")
-    private EStatus eStatus;
+
+    @OneToOne()
+    @JoinColumn(name = "status", referencedColumnName = "id")
+    private Status status;
 
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,
@@ -33,14 +36,13 @@ public class Carinspection {
     Set<Orderline> orderlines;
 
     public Carinspection(){
-
     }
 
-    public Carinspection(long id, Date date, EStatus status) {
+    public Carinspection(long id, Date date, Status status) {
         this.id = id;
         this.date = date;
-        this.eStatus = status;
-        seteStatus(EStatus.OPEN);
+        this.status = status;
+
     }
 
     public void addCarpartToCarinspection(Carpart carpart, int amount){
@@ -49,12 +51,13 @@ public class Carinspection {
         orderlines.add(orderline);
     }
 
-    public EStatus geteStatus() {
-        return eStatus;
+
+    public Status getStatus() {
+        return status;
     }
 
-    public void seteStatus(EStatus eStatus) {
-        this.eStatus = eStatus;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public long getId() {

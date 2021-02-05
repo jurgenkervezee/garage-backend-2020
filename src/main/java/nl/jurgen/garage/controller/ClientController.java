@@ -106,7 +106,6 @@ public class ClientController {
     @PostMapping("/upload/clientid/{id}")
     public ResponseEntity<ResponseMessage> uploadFile(@PathVariable long id, @RequestParam("file") MultipartFile file) {
 
-
         try {
             storageService.store(file, id);
 

@@ -24,6 +24,10 @@ VALUES
 ('lamp neon', 38.65 , 8),
 ('Riem', 32.95 , 6);
 
+INSERT INTO status (name)
+VALUES
+('OPEN'),('INSPECTED'), ('REPAIRED'), ('REJECTED'), ('CLOSED');
+
 
 INSERT INTO carinspection(date_inspection, status,client_id)
 VALUES
