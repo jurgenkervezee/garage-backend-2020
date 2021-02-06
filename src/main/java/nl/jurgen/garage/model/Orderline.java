@@ -44,6 +44,12 @@ public class Orderline {
         description = carpart.getDescription();
     }
 
+    public Orderline(String description, int amount, double price){
+        this.description = description;
+        this.amount = amount;
+        this.price = price;
+    }
+
     public Orderline(OrderlineCustomRequest orderlineCustomRequest){
         this.amount = orderlineCustomRequest.getAmount();
         this.description = orderlineCustomRequest.getDescription();

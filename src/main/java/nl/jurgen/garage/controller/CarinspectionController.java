@@ -65,4 +65,20 @@ public class CarinspectionController {
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
+    // Get price for the repair after the carinspection
+    @GetMapping(value = "/repairprice/{carinspectionid}")
+    public ResponseEntity<Object> getPriceForRepairByCarinspection(@PathVariable long carinspectionid){
+
+        Double price = carinspectionService.getPriceForRepairByCarinspection(carinspectionid);
+        return new ResponseEntity<>(price, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/declinerepair/{carinspectionid}")
+    public ResponseEntity<Object> declineRepairByCarinspectionId(@PathVariable long carinspectionid){
+
+        double price = carinspectionService.declineRepair(carinspectionid);
+
+        return new ResponseEntity<>(price, HttpStatus.OK);
+    }
+
 }

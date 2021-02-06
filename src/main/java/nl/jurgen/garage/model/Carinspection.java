@@ -51,6 +51,9 @@ public class Carinspection {
         orderlines.add(orderline);
     }
 
+    public void addCarinspectionCosts(Orderline orderline) {
+    orderlines.add(orderline);
+    }
 
     public Status getStatus() {
         return status;
@@ -91,4 +94,6 @@ public class Carinspection {
     public void addOrderline(Orderline orderline) {
         orderlines.add(orderline);
     }
+
+
 }

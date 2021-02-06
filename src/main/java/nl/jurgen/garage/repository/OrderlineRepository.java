@@ -9,4 +9,5 @@ public interface OrderlineRepository extends JpaRepository<Orderline, Long> {
 
     boolean existsByCarinspectionId(long id);
     List<Orderline>  getOrderlinesByCarinspectionId(long id);
+    void deleteAllByCarinspectionId(long id);
 }

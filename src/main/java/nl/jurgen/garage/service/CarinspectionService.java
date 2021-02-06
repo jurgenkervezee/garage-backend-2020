@@ -96,7 +96,6 @@ public class CarinspectionService {
     public void saveOrderlineToDbase(Carinspection carinspection, Orderline orderline){
 
         carinspection.addOrderline(orderline);
-        carinspectionRepository.save(carinspection);
         orderline.setCarinspection(carinspection);
         orderlineRepository.save(orderline);
     }
@@ -114,4 +113,46 @@ public class CarinspectionService {
             throw new RecordNotFoundException();
         }
     }
+
+    public Double getPriceForRepairByCarinspection(long carinspectionid) {
+
+        double totalPrice = 0;
+        List<Orderline> orderlineList = orderlineRepository.getOrderlinesByCarinspectionId(carinspectionid);
+
+        for(Orderline orderline: orderlineList){
+            double price = orderline.getPrice() * orderline.getAmount();
+            totalPrice = totalPrice + price;
+        }
+        return Math.round(totalPrice*100)/100.0d;
+    }
+
+    public Double declineRepair(long carinspectionid) {
+
+        if(carinspectionRepository.existsById(carinspectionid)){
+
+            Carinspection carinspection = carinspectionRepository.findById(carinspectionid).orElse(null);
+            Set<Orderline> orderlineSet = carinspection.getOrderlines();
+            orderlineSet.removeAll(orderlineSet);
+
+            Orderline orderline = new Orderline("Carinspection", 1, 45.00);
+            orderline.setCarinspection(carinspection);
+            carinspection.addCarinspectionCosts(orderline);
+            carinspection.setOrderlines(orderlineSet);
+
+            Status status = statusRepository.findByName(EStatus.REPAIR_DECLINED);
+            carinspection.setStatus(status);
+//            orderline.setCarinspection(carinspection);
+
+            carinspectionRepository.save(carinspection);
+
+            return getPriceForRepairByCarinspection(carinspectionid);
+
+        }else {
+            throw new RecordNotFoundException();
+        }
+
+
+    }
+
+
 }

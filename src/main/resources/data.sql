@@ -26,7 +26,7 @@ VALUES
 
 INSERT INTO status(name)
 VALUES
-('OPEN'),('INSPECTED'), ('REPAIRED'), ('REJECTED'), ('CLOSED');
+('OPEN'),('INSPECTED'), ('REPAIRED'), ('REPAIR_DECLINED'), ('CLOSED');
 
 
 INSERT INTO carinspection(date_inspection, status,client_id)
