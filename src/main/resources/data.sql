@@ -24,7 +24,7 @@ VALUES
 ('lamp neon', 38.65 , 8),
 ('Riem', 32.95 , 6);
 
-INSERT INTO status (name)
+INSERT INTO status(name)
 VALUES
 ('OPEN'),('INSPECTED'), ('REPAIRED'), ('REJECTED'), ('CLOSED');
 

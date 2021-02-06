@@ -32,21 +32,21 @@ public class Carinspection {
 
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,
-            mappedBy = "carinspection")
+            mappedBy = "carinspection",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     Set<Orderline> orderlines;
 
     public Carinspection(){
     }
 
-    public Carinspection(long id, Date date, Status status) {
-        this.id = id;
-        this.date = date;
-        this.status = status;
-
+    public Carinspection(Date date, Status status) {
+    this.date = date;
+    this.status = status;
     }
 
-    public void addCarpartToCarinspection(Carpart carpart, int amount){
 
+    public void addCarpartToCarinspection(Carpart carpart, int amount){
         Orderline orderline = new Orderline(carpart, amount);
         orderlines.add(orderline);
     }

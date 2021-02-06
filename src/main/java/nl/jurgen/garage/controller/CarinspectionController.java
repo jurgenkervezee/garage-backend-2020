@@ -34,7 +34,7 @@ public class CarinspectionController {
     public ResponseEntity<Object> getInspectionById(@PathVariable long id){
 
         Carinspection carinspection = carinspectionService.getCarinspectionById(id);
-        return new ResponseEntity<>(carinspection, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(carinspection, HttpStatus.OK);
     }
     // Add a carpart to an inspection icluding amount
     @PostMapping(value = "/{carinspectionId}/carpart/{carpartId}/amount/{amount}")
@@ -64,4 +64,5 @@ public class CarinspectionController {
         Client client = carinspectionService.getClientByCarinspectionId(carinspectionId);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
+
 }

@@ -2,15 +2,10 @@ package nl.jurgen.garage.service;
 
 import nl.jurgen.garage.exception.DuplicateRecordInDatabase;
 import nl.jurgen.garage.exception.RecordNotFoundException;
-import nl.jurgen.garage.model.Carinspection;
-import nl.jurgen.garage.model.Carpart;
-import nl.jurgen.garage.model.Client;
-import nl.jurgen.garage.model.Orderline;
+import nl.jurgen.garage.model.*;
+import nl.jurgen.garage.payload.request.AppointmentRequest;
 import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
-import nl.jurgen.garage.repository.CarPartRepository;
-import nl.jurgen.garage.repository.CarinspectionRepository;
-import nl.jurgen.garage.repository.ClientRepository;
-import nl.jurgen.garage.repository.OrderlineRepository;
+import nl.jurgen.garage.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +27,9 @@ public class CarinspectionService {
     @Autowired
     OrderlineRepository orderlineRepository;
 
+    @Autowired
+    StatusRepository statusRepository;
+
     public List<Carinspection> getAllInspections() {
 
         return carinspectionRepository.findAll();
@@ -46,17 +44,22 @@ public class CarinspectionService {
         }
     }
 
-    public long saveAppointment(long clientId, Carinspection carinspection) {
+    public long saveAppointment(long clientId, AppointmentRequest appointmentRequest) {
+
+        Status status = statusRepository.findByName(appointmentRequest.getStatus().getName());
+        Carinspection carinspection = new Carinspection(appointmentRequest.getDate(), status);
 
         if(clientRepository.existsById(clientId)){
 
             Client client = clientRepository.findById(clientId).orElse(null);
 
              if(!carinspectionRepository.existsByClientIdAndAndDate(clientId, carinspection.getDate())){
+
                  Set<Carinspection> carinspectionSet = client.getCarinspections();
                  carinspectionSet.add(carinspection);
                  client.setCarinspections(carinspectionSet);
                  carinspection.setClient(client);
+
                  carinspectionRepository.save(carinspection);
                  return clientId;
              } else {
@@ -102,5 +105,13 @@ public class CarinspectionService {
 
          Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
         return clientRepository.findById(carinspection.getClient().getId()).orElse(null);
+    }
+
+    public void deleteAppointment(long id) {
+        if(carinspectionRepository.existsById(id)) {
+            carinspectionRepository.deleteById(id);
+        }else {
+            throw new RecordNotFoundException();
+        }
     }
 }

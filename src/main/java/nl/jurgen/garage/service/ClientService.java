@@ -89,8 +89,8 @@ public class ClientService{
 
     public Car getCarById(long id) {
         if(carRepository.existsById(id)){
-                    }
-        return carRepository.findById(id).orElse(null);
+            return carRepository.findById(id).orElse(null);
+        }else throw new RecordNotFoundException();
     }
 
 

@@ -1,9 +1,7 @@
 package nl.jurgen.garage.controller;
 
-import nl.jurgen.garage.model.Car;
-import nl.jurgen.garage.model.Carinspection;
-import nl.jurgen.garage.model.Client;
-import nl.jurgen.garage.model.FileDB;
+import nl.jurgen.garage.model.*;
+import nl.jurgen.garage.payload.request.AppointmentRequest;
 import nl.jurgen.garage.payload.request.RegisterUserRequest;
 import nl.jurgen.garage.payload.response.ResponseFile;
 import nl.jurgen.garage.payload.response.ResponseMessage;
@@ -11,6 +9,7 @@ import nl.jurgen.garage.service.CarinspectionService;
 import nl.jurgen.garage.service.ClientService;
 import nl.jurgen.garage.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -86,7 +85,8 @@ public class ClientController {
 
     //Add a new car to a client
     @PostMapping(value = "/car/{id}")
-    public ResponseEntity<Object> addCarAndLinkById(@PathVariable long id, @RequestBody Car car){
+    public ResponseEntity<Object> addCarAndLinkById(@PathVariable long id,
+                                                    @RequestBody Car car){
 
         Client client = clientService.getClientById(id);
         long carId = clientService.saveCarById(id, car);
@@ -96,9 +96,10 @@ public class ClientController {
 
     //Create an appointment for a carinspection using a date and the client id
     @PostMapping(value = "/appointment/{id}")
-    public ResponseEntity<Object> createAppointment(@PathVariable long id, @RequestBody Carinspection carinspection){
+    public ResponseEntity<Object> createAppointment(@PathVariable long id,
+                                                    @RequestBody AppointmentRequest appointmentRequest){
 
-        long clientId = carinspectionService.saveAppointment(id, carinspection);
+        long clientId = carinspectionService.saveAppointment(id, appointmentRequest);
         return new ResponseEntity<>(clientId, HttpStatus.CREATED);
     }
 
