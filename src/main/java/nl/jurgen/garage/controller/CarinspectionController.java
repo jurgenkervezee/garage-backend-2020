@@ -30,14 +30,14 @@ public class CarinspectionController {
     }
 
     // Get an appointment by ID
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/appointmentid/{id}")
     public ResponseEntity<Object> getInspectionById(@PathVariable long id){
 
         Carinspection carinspection = carinspectionService.getCarinspectionById(id);
         return new ResponseEntity<>(carinspection, HttpStatus.OK);
     }
     // Add a carpart to an inspection icluding amount
-    @PostMapping(value = "/{carinspectionId}/carpart/{carpartId}/amount/{amount}")
+    @PostMapping(value = "/carinspectionid/{carinspectionId}/carpart/{carpartId}/amount/{amount}")
     public ResponseEntity<Object> addCarpartsToCarinspection(@PathVariable long carinspectionId,
                                                              @PathVariable long carpartId,
                                                              @PathVariable int amount){
@@ -48,7 +48,7 @@ public class CarinspectionController {
     }
 
     // add a custom activity to a carinspection
-    @PostMapping(value = "/{carinspectionId}/custom")
+    @PostMapping(value = "/carinspectionid/{carinspectionId}/custom")
     public ResponseEntity<Object> addCustomActivityToOrderline(@PathVariable long carinspectionId,
                                                                @RequestBody OrderlineCustomRequest orderlineCustomRequest){
 
