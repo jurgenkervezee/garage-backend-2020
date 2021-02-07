@@ -24,12 +24,16 @@ public class RepairActivity {
     @Column
     private double price;
 
+    @NotNull
+    @Column
+    private int amount;
+
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,
             mappedBy = "repairactivity",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<Orderline> orderline;
+    private Set<Orderline> orderlines;
 
     public RepairActivity() {
     }
@@ -58,11 +62,19 @@ public class RepairActivity {
         this.id = id;
     }
 
-    public Set<Orderline> getOrderline() {
-        return orderline;
+    public Set<Orderline> getOrderlines() {
+        return orderlines;
     }
 
-    public void setOrderline(Set<Orderline> orderline) {
-        this.orderline = orderline;
+    public void setOrderlines(Set<Orderline> orderline) {
+        this.orderlines = orderline;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

@@ -5,6 +5,5 @@ public enum EStatus {
     INSPECTED,
     REPAIRED,
     REPAIR_DECLINED,
-    PAID,
-    CLOSED
+    PAID_CLOSED,
 }

@@ -2,13 +2,17 @@ INSERT INTO client (first_name, last_name, telephone_number)
 VALUES
 ('Peter', 'Anema', '06-12345678'),
 ('Truus', 'Jansen', '06-87654321'),
+('Henk', 'Henksen', '06-12389738'),
+('Jaap', 'Gerrit', '06-33763761'),
 ('Jan', 'Jansen', '06-12348765');
 
 INSERT into address ( street_name, house_number, house_number_add, postal_code, home_town, client_id)
 VALUES
 ('Spijkerstraat', '2', 'a', '1400 XX','Bussum', 1),
-('Bijlstraat',  '1','b' , '1400 XX', 'Laren', 2),
-('Hamerstraat', '2', 'a', '1400 XX', 'Bussum', 3);
+('Bijlstraat','1','b', '1400 XX', 'Laren', 2),
+('ClaudiaGaarde', '3', null , '1400 XX', 'Weeps', 3),
+('Bijlstraat', '12','b' , '1400 XX', 'Laren', 4),
+('Hamerstraat', '2','a', '1400 XX', 'Amsterdam', 5);
 
 INSERT INTO car (number_plate, brand, model, client_id)
 VALUES
@@ -36,19 +40,8 @@ VALUES
 (TO_DATE('01/03/2021','DD/MM/YYYY'), 1,2);
 
 INSERT INTO role(name)
-VALUES('ROLE_USER');
-INSERT INTO role(name)
-VALUES('ROLE_RECEPTION');
-INSERT INTO role(name)
-VALUES('ROLE_MECHANIC');
-INSERT INTO role(name)
-VALUES('ROLE_WAREHOUSE');
-INSERT INTO role(name)
-VALUES('ROLE_CASHIER');
-INSERT INTO role(name)
-VALUES('ROLE_MODERATOR');
-INSERT INTO role(name)
-VALUES('ROLE_ADMIN');
+VALUES
+('ROLE_USER'), ('ROLE_RECEPTION'),('ROLE_MECHANIC'),('ROLE_WAREHOUSE'),('ROLE_CASHIER'),('ROLE_MODERATOR'),('ROLE_ADMIN');
 
 INSERT INTO app_user(email, password, username)
 VALUES

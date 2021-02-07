@@ -42,6 +42,13 @@ public class Orderline {
     public Orderline(){
     }
 
+    public Orderline(RepairActivity repairActivity, int amount){
+        this.repairactivity = repairActivity;
+        this.amount = amount;
+        price = repairActivity.getPrice();
+        description = repairActivity.getDescription();
+    }
+
     public Orderline(Carpart carpart, int amount) {
         this.carpart = carpart;
         this.amount = amount;

@@ -2,6 +2,7 @@ package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Client;
+import nl.jurgen.garage.model.EStatus;
 import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
 import nl.jurgen.garage.service.CarinspectionService;
 import nl.jurgen.garage.service.ClientService;
@@ -47,6 +48,17 @@ public class CarinspectionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // Add a repair activity to a carinspection
+    @PostMapping(value = "/carinspectionid/{carinspectionId}/repairactivity/{repairactivityId}/amount/{amount}")
+    public ResponseEntity<Object> addRepairActivityToCarinspection(@PathVariable long carinspectionId,
+                                                                   @PathVariable long repairactivityId,
+                                                                   @PathVariable int amount){
+
+        carinspectionService.addRepairActivityToCarinspection(carinspectionId, repairactivityId, amount);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     // add a custom activity to a carinspection
     @PostMapping(value = "/carinspectionid/{carinspectionId}/custom")
     public ResponseEntity<Object> addCustomActivityToOrderline(@PathVariable long carinspectionId,
@@ -54,7 +66,7 @@ public class CarinspectionController {
 
         carinspectionService.addCustomActivityToOrderline(carinspectionId, orderlineCustomRequest);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // Get client details with a carinspection
@@ -65,22 +77,30 @@ public class CarinspectionController {
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
-    // Get price for the repair after the carinspection
+    // Get price for the repair after the carinspection and status to inspected
     @GetMapping(value = "/repairprice/{carinspectionid}")
     public ResponseEntity<Object> getPriceForRepairByCarinspection(@PathVariable long carinspectionid){
 
         Double price = carinspectionService.getPriceForRepairByCarinspection(carinspectionid);
+        carinspectionService.changeStatus(carinspectionid, EStatus.INSPECTED);
+
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
 
+    // Delete all orderlines and add carinspection costs also change carinspection status to decline_repair
     @PostMapping(value = "/declinerepair/{carinspectionid}")
     public ResponseEntity<Object> declineRepairByCarinspectionId(@PathVariable long carinspectionid){
 
         double price = carinspectionService.declineRepair(carinspectionid);
-
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
 
+    // Repair car, Carinspection status to repaired
+    @PostMapping(value = "/repaircar/carinspectionid/{carinspectionId}")
+    public ResponseEntity<Object> repairCarAndSetStatusToRepaired(@PathVariable long carinspectionId){
 
+        carinspectionService.changeStatus(carinspectionId, EStatus.REPAIRED);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

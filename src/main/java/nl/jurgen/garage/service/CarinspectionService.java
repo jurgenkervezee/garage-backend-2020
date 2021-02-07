@@ -25,6 +25,9 @@ public class CarinspectionService {
     CarPartRepository carPartRepository;
 
     @Autowired
+    RepairActivityRepository repairActivityRepository;
+
+    @Autowired
     OrderlineRepository orderlineRepository;
 
     @Autowired
@@ -81,6 +84,16 @@ public class CarinspectionService {
             saveOrderlineToDbase(carinspection, orderline);
         }
 
+    }
+
+    public void addRepairActivityToCarinspection(long carinspectionId, long repairactivityId, int amount) {
+
+        Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
+        RepairActivity repairActivity = repairActivityRepository.findById(repairactivityId).orElse(null);
+        Orderline orderline = new Orderline(repairActivity, amount);
+        if(carinspection != null){
+            saveOrderlineToDbase(carinspection, orderline);
+        }
     }
 
     public void addCustomActivityToOrderline(long carinspectionId, OrderlineCustomRequest orderlineCustomRequest) {
@@ -141,7 +154,6 @@ public class CarinspectionService {
 
             Status status = statusRepository.findByName(EStatus.REPAIR_DECLINED);
             carinspection.setStatus(status);
-//            orderline.setCarinspection(carinspection);
 
             carinspectionRepository.save(carinspection);
 
@@ -155,4 +167,18 @@ public class CarinspectionService {
     }
 
 
+    public void changeStatus(long carinspectionid, EStatus inspected) {
+
+        if(carinspectionRepository.existsById(carinspectionid)){
+            Carinspection carinspection = carinspectionRepository.findById(carinspectionid).orElse(null);
+
+            Status status = statusRepository.findByName(inspected);
+            carinspection.setStatus(status);
+
+            carinspectionRepository.save(carinspection);
+        }else {
+            throw new RecordNotFoundException();
+        }
+
+    }
 }
