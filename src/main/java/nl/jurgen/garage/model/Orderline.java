@@ -27,12 +27,17 @@ public class Orderline {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "carpart_id")
-    Carpart carpart;
+    private Carpart carpart;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "carinspection_id")
-    Carinspection carinspection;
+    private Carinspection carinspection;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "repairactivity_id")
+    private RepairActivity repairactivity;
 
     public Orderline(){
     }
@@ -56,13 +61,19 @@ public class Orderline {
         this.price = orderlineCustomRequest.getPrice();
     }
 
+    public RepairActivity getRepairactivity() {
+        return repairactivity;
+    }
+
+    public void setRepairactivity(RepairActivity repairactivity) {
+        this.repairactivity = repairactivity;
+    }
+
+
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public double getPrice() {
         return price;

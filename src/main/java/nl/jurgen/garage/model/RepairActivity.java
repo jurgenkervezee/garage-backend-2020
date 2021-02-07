@@ -1,52 +1,41 @@
 package nl.jurgen.garage.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Set;
 
+
 @Entity
-@Table(name = "carpart")
-public class Carpart {
+@Table(name = "repairactivity")
+public class RepairActivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
-    @Column(name = "description")
+    @Column
     private String description;
 
     @NotNull
-    @Column(name = "stock_amount")
-    private int stockAmount;
-
-    @NotNull
-    @Column(name = "price")
+    @Column
     private double price;
 
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,
+            mappedBy = "repairactivity",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "carpart")
-    Set<Orderline> orderlines;
+            orphanRemoval = true)
+    private Set<Orderline> orderline;
 
-    public Set<Orderline> getOrderlines() {
-        return orderlines;
-    }
-
-    public void setOrderlines(Set<Orderline> orderlines) {
-        this.orderlines = orderlines;
+    public RepairActivity() {
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -57,19 +46,23 @@ public class Carpart {
         this.description = description;
     }
 
-    public int getStockAmount() {
-        return stockAmount;
-    }
-
-    public void setStockAmount(int stockAmount) {
-        this.stockAmount = stockAmount;
-    }
-
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Set<Orderline> getOrderline() {
+        return orderline;
+    }
+
+    public void setOrderline(Set<Orderline> orderline) {
+        this.orderline = orderline;
     }
 }
