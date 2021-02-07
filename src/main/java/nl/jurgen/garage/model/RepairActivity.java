@@ -24,10 +24,6 @@ public class RepairActivity {
     @Column
     private double price;
 
-    @NotNull
-    @Column
-    private int amount;
-
     @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,
             mappedBy = "repairactivity",
@@ -70,11 +66,4 @@ public class RepairActivity {
         this.orderlines = orderline;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 }

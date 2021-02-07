@@ -28,6 +28,15 @@ VALUES
 ('lamp neon', 38.65 , 8),
 ('Riem', 32.95 , 6);
 
+INSERT INTO repairactivity (description, price)
+VALUES
+('Stuurhuis vervangen',200.00),
+('Luchtfilter vervangen',50),
+('Velgen vervangen',25),
+('Olie aftappen en verversen',10.00),
+('Lampjes vervangen',5),
+('Koffiedrinken',1.50);
+
 INSERT INTO status(name)
 VALUES
 ('OPEN'),('INSPECTED'), ('REPAIRED'), ('REPAIR_DECLINED'), ('CLOSED');
