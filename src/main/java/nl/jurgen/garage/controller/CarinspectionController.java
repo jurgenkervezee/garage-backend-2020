@@ -4,8 +4,10 @@ import nl.jurgen.garage.model.Carinspection;
 import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.model.EStatus;
 import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
+import nl.jurgen.garage.service.CalculationService;
 import nl.jurgen.garage.service.CarinspectionService;
 import nl.jurgen.garage.service.ClientService;
+import nl.jurgen.garage.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ public class CarinspectionController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private StatusService statusService;
 
     // List available inspections
     @GetMapping(value = "/list")
@@ -81,8 +86,8 @@ public class CarinspectionController {
     @GetMapping(value = "/repairprice/{carinspectionid}")
     public ResponseEntity<Object> getPriceForRepairByCarinspection(@PathVariable long carinspectionid){
 
-        Double price = carinspectionService.getPriceForRepairByCarinspection(carinspectionid);
-        carinspectionService.changeStatus(carinspectionid, EStatus.INSPECTED);
+        double price = carinspectionService.getPriceForRepairByCarinspection(carinspectionid);
+        statusService.changeStatus(carinspectionid, EStatus.INSPECTED);
 
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
@@ -92,6 +97,7 @@ public class CarinspectionController {
     public ResponseEntity<Object> declineRepairByCarinspectionId(@PathVariable long carinspectionid){
 
         double price = carinspectionService.declineRepair(carinspectionid);
+        statusService.changeStatus(carinspectionid, EStatus.REPAIR_DECLINED);
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
 
@@ -99,8 +105,7 @@ public class CarinspectionController {
     @PostMapping(value = "/repaircar/carinspectionid/{carinspectionId}")
     public ResponseEntity<Object> repairCarAndSetStatusToRepaired(@PathVariable long carinspectionId){
 
-        carinspectionService.changeStatus(carinspectionId, EStatus.REPAIRED);
-        return new ResponseEntity<>(HttpStatus.OK);
+    statusService.changeStatus(carinspectionId, EStatus.REPAIRED);
+    return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

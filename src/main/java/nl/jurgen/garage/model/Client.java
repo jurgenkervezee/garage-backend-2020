@@ -6,7 +6,6 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "client")
 public class Client {
@@ -38,6 +37,7 @@ public class Client {
     @OneToOne(fetch=FetchType.LAZY, mappedBy="client")
     private Car cars;
 
+    @JsonIgnore
     @OneToMany(fetch=FetchType.LAZY,mappedBy="client")
     private Set<Carinspection> carinspections;
 

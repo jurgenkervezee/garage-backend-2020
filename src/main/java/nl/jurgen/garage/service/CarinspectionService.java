@@ -16,22 +16,25 @@ import java.util.Set;
 public class CarinspectionService {
 
     @Autowired
-    CarinspectionRepository carinspectionRepository;
+    private CarinspectionRepository carinspectionRepository;
 
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     @Autowired
-    CarPartRepository carPartRepository;
+    private CarPartRepository carPartRepository;
 
     @Autowired
-    RepairActivityRepository repairActivityRepository;
+    private RepairActivityRepository repairActivityRepository;
 
     @Autowired
-    OrderlineRepository orderlineRepository;
+    private OrderlineRepository orderlineRepository;
 
     @Autowired
-    StatusRepository statusRepository;
+    private StatusRepository statusRepository;
+
+    @Autowired
+    private CalculationService calculationService;
 
     public List<Carinspection> getAllInspections() {
 
@@ -127,23 +130,21 @@ public class CarinspectionService {
         }
     }
 
-    public Double getPriceForRepairByCarinspection(long carinspectionid) {
+    public Double getPriceForRepairByCarinspection(long carinspectionId) {
 
-        double totalPrice = 0;
-        List<Orderline> orderlineList = orderlineRepository.getOrderlinesByCarinspectionId(carinspectionid);
+        List<Orderline> orderlineList = orderlineRepository.getOrderlinesByCarinspectionId(carinspectionId);
 
-        for(Orderline orderline: orderlineList){
-            double price = orderline.getPrice() * orderline.getAmount();
-            totalPrice = totalPrice + price;
-        }
-        return Math.round(totalPrice*100)/100.0d;
+        double priceExVat = calculationService.getPriceExVatForRepairByCarinspection(orderlineList);
+        double priceVat = calculationService.calculateVat(priceExVat);
+
+        return Math.round((priceExVat+priceVat)*100)/100.0d;
     }
 
-    public Double declineRepair(long carinspectionid) {
+    public Double declineRepair(long carinspectionId) {
 
-        if(carinspectionRepository.existsById(carinspectionid)){
+        if(carinspectionRepository.existsById(carinspectionId)){
 
-            Carinspection carinspection = carinspectionRepository.findById(carinspectionid).orElse(null);
+            Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
             Set<Orderline> orderlineSet = carinspection.getOrderlines();
             orderlineSet.removeAll(orderlineSet);
 
@@ -157,28 +158,10 @@ public class CarinspectionService {
 
             carinspectionRepository.save(carinspection);
 
-            return getPriceForRepairByCarinspection(carinspectionid);
+            return getPriceForRepairByCarinspection(carinspectionId);
 
         }else {
             throw new RecordNotFoundException();
         }
-
-
-    }
-
-
-    public void changeStatus(long carinspectionid, EStatus inspected) {
-
-        if(carinspectionRepository.existsById(carinspectionid)){
-            Carinspection carinspection = carinspectionRepository.findById(carinspectionid).orElse(null);
-
-            Status status = statusRepository.findByName(inspected);
-            carinspection.setStatus(status);
-
-            carinspectionRepository.save(carinspection);
-        }else {
-            throw new RecordNotFoundException();
-        }
-
     }
 }
