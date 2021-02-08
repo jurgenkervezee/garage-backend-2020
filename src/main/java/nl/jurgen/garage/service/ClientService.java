@@ -29,7 +29,6 @@ public class ClientService{
         return clients;
     }
 
-
     public Client getClientById(long id) {
         if(clientRepository.existsById(id)){
 
@@ -40,7 +39,6 @@ public class ClientService{
             throw new RecordNotFoundException();
         }
     }
-
 
     public void deleteClient(long id) {
         if(clientRepository.existsById(id)){
