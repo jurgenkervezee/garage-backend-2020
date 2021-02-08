@@ -1,18 +1,14 @@
 package nl.jurgen.garage.controller;
 
-import nl.jurgen.garage.model.Carinspection;
-import nl.jurgen.garage.model.Client;
-import nl.jurgen.garage.model.EStatus;
+import nl.jurgen.garage.model.*;
 import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
-import nl.jurgen.garage.service.CalculationService;
-import nl.jurgen.garage.service.CarinspectionService;
-import nl.jurgen.garage.service.ClientService;
-import nl.jurgen.garage.service.StatusService;
+import nl.jurgen.garage.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.PublicKey;
 import java.util.List;
 
 @RestController
@@ -28,6 +24,12 @@ public class CarinspectionController {
     @Autowired
     private StatusService statusService;
 
+    @Autowired
+    private CarpartService carpartService;
+
+    @Autowired
+    private RepairActivityService repairActivityService;
+
     // List available inspections
     @GetMapping(value = "/list")
     public ResponseEntity<Object> getAllInspections(){
@@ -42,7 +44,16 @@ public class CarinspectionController {
         Carinspection carinspection = carinspectionService.getCarinspectionById(id);
         return new ResponseEntity<>(carinspection, HttpStatus.OK);
     }
-    // Add a carpart to an inspection icluding amount
+
+    // List all available carparts
+    @GetMapping(value = "/carparts/list")
+    public ResponseEntity<Object> getAllAvailableCarparts(){
+
+        List<Carpart> carpartList = carpartService.getAllCarParts();
+        return new ResponseEntity<>(carpartList, HttpStatus.OK);
+    }
+
+    // Add a carpart to an inspection including amount
     @PostMapping(value = "/carinspectionid/{carinspectionId}/carpart/{carpartId}/amount/{amount}")
     public ResponseEntity<Object> addCarpartsToCarinspection(@PathVariable long carinspectionId,
                                                              @PathVariable long carpartId,
@@ -51,6 +62,15 @@ public class CarinspectionController {
         carinspectionService.addCarpartToOrderline(carinspectionId, carpartId, amount);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // List all available RepairActivities
+
+    @GetMapping(value = "/repairactivity/list")
+    public ResponseEntity<Object> getAllRepairActivities(){
+
+        List<RepairActivity> repairActivityList = repairActivityService.getAllRepairActivities();
+        return new ResponseEntity<>(repairActivityList, HttpStatus.OK);
     }
 
     // Add a repair activity to a carinspection

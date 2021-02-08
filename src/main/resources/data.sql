@@ -30,6 +30,7 @@ VALUES
 
 INSERT INTO repairactivity (description, price)
 VALUES
+('Carinspection',45.00),
 ('Stuurhuis vervangen',200.00),
 ('Luchtfilter vervangen',50),
 ('Velgen vervangen',25),

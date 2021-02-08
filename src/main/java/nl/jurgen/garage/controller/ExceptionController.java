@@ -3,6 +3,7 @@ package nl.jurgen.garage.controller;
 
 import nl.jurgen.garage.exception.DuplicateRecordInDatabase;
 import nl.jurgen.garage.exception.RecordNotFoundException;
+import nl.jurgen.garage.exception.StatusErrorException;
 import nl.jurgen.garage.payload.response.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +31,8 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("File too large!"));
     }
 
-
+    @ExceptionHandler(value = StatusErrorException.class)
+    public ResponseEntity<Object> exception(StatusErrorException exception){
+        return new ResponseEntity<>("Carinspection has the wrong status for that action", HttpStatus.CONFLICT);
+    }
 }

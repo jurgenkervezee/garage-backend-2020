@@ -2,6 +2,7 @@ package nl.jurgen.garage.service;
 
 import nl.jurgen.garage.exception.DuplicateRecordInDatabase;
 import nl.jurgen.garage.exception.RecordNotFoundException;
+import nl.jurgen.garage.exception.StatusErrorException;
 import nl.jurgen.garage.model.*;
 import nl.jurgen.garage.payload.request.AppointmentRequest;
 import nl.jurgen.garage.payload.request.OrderlineCustomRequest;
@@ -142,25 +143,30 @@ public class CarinspectionService {
 
     public Double declineRepair(long carinspectionId) {
 
-        if(carinspectionRepository.existsById(carinspectionId)){
-
+        if (carinspectionRepository.existsById(carinspectionId)) {
             Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
-            Set<Orderline> orderlineSet = carinspection.getOrderlines();
-            orderlineSet.removeAll(orderlineSet);
 
-            Orderline orderline = new Orderline("Carinspection", 1, 45.00);
-            orderline.setCarinspection(carinspection);
-            carinspection.addCarinspectionCosts(orderline);
-            carinspection.setOrderlines(orderlineSet);
+            if (carinspection.getStatus().getName() == EStatus.OPEN) {
 
-            Status status = statusRepository.findByName(EStatus.REPAIR_DECLINED);
-            carinspection.setStatus(status);
+                Set<Orderline> orderlineSet = carinspection.getOrderlines();
+                orderlineSet.removeAll(orderlineSet);
 
-            carinspectionRepository.save(carinspection);
+                Orderline orderline = new Orderline("Carinspection", 1, 45.00);
+                orderline.setCarinspection(carinspection);
+                carinspection.addCarinspectionCosts(orderline);
+                carinspection.setOrderlines(orderlineSet);
 
-            return getPriceForRepairByCarinspection(carinspectionId);
+                Status status = statusRepository.findByName(EStatus.REPAIR_DECLINED);
+                carinspection.setStatus(status);
 
-        }else {
+                carinspectionRepository.save(carinspection);
+
+                return getPriceForRepairByCarinspection(carinspectionId);
+
+            } else {
+                throw new StatusErrorException();
+            }
+        } else {
             throw new RecordNotFoundException();
         }
     }
