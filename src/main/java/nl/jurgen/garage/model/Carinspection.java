@@ -45,16 +45,6 @@ public class Carinspection {
     this.status = status;
     }
 
-
-    public void addCarpartToCarinspection(Carpart carpart, int amount){
-        Orderline orderline = new Orderline(carpart, amount);
-        orderlines.add(orderline);
-    }
-
-    public void addCarinspectionCosts(Orderline orderline) {
-    orderlines.add(orderline);
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -94,6 +84,4 @@ public class Carinspection {
     public void addOrderline(Orderline orderline) {
         orderlines.add(orderline);
     }
-
-
 }

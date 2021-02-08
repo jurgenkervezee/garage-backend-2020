@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.PublicKey;
 import java.util.List;
 
 @RestController
@@ -65,7 +64,6 @@ public class CarinspectionController {
     }
 
     // List all available RepairActivities
-
     @GetMapping(value = "/repairactivity/list")
     public ResponseEntity<Object> getAllRepairActivities(){
 
@@ -106,10 +104,10 @@ public class CarinspectionController {
     @GetMapping(value = "/repairprice/{carinspectionid}")
     public ResponseEntity<Object> getPriceForRepairByCarinspection(@PathVariable long carinspectionid){
 
-        double price = carinspectionService.getPriceForRepairByCarinspection(carinspectionid);
+        double TotalPrice = carinspectionService.finalizeCarinspectionAndRetrieveTotalPrice(carinspectionid);
         statusService.changeStatus(carinspectionid, EStatus.INSPECTED);
 
-        return new ResponseEntity<>(price, HttpStatus.OK);
+        return new ResponseEntity<>(TotalPrice, HttpStatus.OK);
     }
 
     // Delete all orderlines and add carinspection costs also change carinspection status to decline_repair

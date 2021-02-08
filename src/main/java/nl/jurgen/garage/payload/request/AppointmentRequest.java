@@ -8,7 +8,6 @@ import java.util.Date;
 public class AppointmentRequest {
 
     private Date date;
-
     private Status status;
 
     public AppointmentRequest(Date date) {
