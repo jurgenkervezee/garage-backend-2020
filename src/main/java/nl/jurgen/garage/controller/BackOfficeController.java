@@ -16,10 +16,10 @@ import java.util.List;
 public class BackOfficeController {
 
     @Autowired
-    private CarpartService carPartService;
+    CarpartService carPartService;
 
     @Autowired
-    private RepairActivityService repairActivityService;
+    RepairActivityService repairActivityService;
 
     //get a listing of all the carparts
     @GetMapping(value = "/carparts/list")

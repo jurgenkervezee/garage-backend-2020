@@ -19,9 +19,6 @@ public class PaymentService {
     @Autowired
     CalculationService calculationService;
 
-    @Autowired
-    CarinspectionService carinspectionService;
-
     public List<Orderline> getOrderlinesCarinspection(long carinspectionId) {
 
         if(orderlineRepository.existsByCarinspectionId(carinspectionId)){

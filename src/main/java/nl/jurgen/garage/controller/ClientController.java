@@ -25,13 +25,13 @@ import java.util.stream.Collectors;
 public class ClientController {
 
     @Autowired
-    private ClientService clientService;
+    ClientService clientService;
 
     @Autowired
-    private CarinspectionService carinspectionService;
+    CarinspectionService carinspectionService;
 
     @Autowired
-    private FileStorageService storageService;
+    FileStorageService storageService;
 
     //List all clients
     @GetMapping(value = "/list")

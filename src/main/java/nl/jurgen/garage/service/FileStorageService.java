@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class FileStorageService {
 
     @Autowired
-    private FileDBRepository fileDBRepository;
+    FileDBRepository fileDBRepository;
 
     @Autowired ClientRepository clientRepository;
 

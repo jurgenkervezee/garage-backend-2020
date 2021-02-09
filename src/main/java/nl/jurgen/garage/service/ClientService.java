@@ -32,9 +32,7 @@ public class ClientService{
     public Client getClientById(long id) {
         if(clientRepository.existsById(id)){
 
-            Client client = clientRepository.findById(id).orElse(null);
-
-            return client;
+            return clientRepository.findById(id).orElse(null);
         }else {
             throw new RecordNotFoundException();
         }

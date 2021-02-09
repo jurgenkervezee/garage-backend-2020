@@ -57,7 +57,7 @@ public class CarpartService {
     }
 
     public Carpart updateCarpartById(long id, Carpart carPart) {
-        if (carPartRepository.existsById(id)) {
+        if (carPartRepository.existsById(id) && carPart.getStockAmount() > 0 ) {
             try {
                 Carpart existingCarpart = carPartRepository.findById(id).orElse(null);
                 existingCarpart.setStockAmount(carPart.getStockAmount());

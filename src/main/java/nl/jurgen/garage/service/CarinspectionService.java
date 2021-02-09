@@ -17,28 +17,28 @@ import java.util.Set;
 public class CarinspectionService {
 
     @Autowired
-    private CarinspectionRepository carinspectionRepository;
+    CarinspectionRepository carinspectionRepository;
 
     @Autowired
-    private ClientRepository clientRepository;
+    ClientRepository clientRepository;
 
     @Autowired
-    private CarPartRepository carPartRepository;
+    CarPartRepository carPartRepository;
 
     @Autowired
-    private RepairActivityRepository repairActivityRepository;
+    RepairActivityRepository repairActivityRepository;
 
     @Autowired
-    private OrderlineRepository orderlineRepository;
+    OrderlineRepository orderlineRepository;
 
     @Autowired
-    private StatusRepository statusRepository;
+    StatusRepository statusRepository;
 
     @Autowired
-    private CalculationService calculationService;
+    CalculationService calculationService;
 
     @Autowired
-    private StatusService statusService;
+    StatusService statusService;
 
     public List<Carinspection> getAllInspections() {
 
@@ -84,12 +84,16 @@ public class CarinspectionService {
     public void addCarpartToOrderline(long carinspectionId, long carpartId, int amount ) {
 
         if(carinspectionRepository.existsById(carinspectionId) && carPartRepository.existsById(carpartId) && amount > 0){
-
             Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
-            Carpart carpart = carPartRepository.findById(carpartId).orElse(null);
 
-            Orderline orderline = new Orderline(carpart, amount);
-            saveOrderlineToDbase(carinspection, orderline);
+            if(carinspection.getStatus().getName()==EStatus.OPEN){
+                Carpart carpart = carPartRepository.findById(carpartId).orElse(null);
+
+                Orderline orderline = new Orderline(carpart, amount);
+                saveOrderlineToDbase(carinspection, orderline);
+            }else{
+                throw new StatusErrorException();
+            }
         }else{
             throw new RecordNotFoundException();
         }
@@ -98,12 +102,16 @@ public class CarinspectionService {
     public void addRepairActivityToCarinspection(long carinspectionId, long repairactivityId, int amount) {
 
         if(carinspectionRepository.existsById(carinspectionId) && repairActivityRepository.existsById(repairactivityId) && amount > 0){
-
             Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
-            RepairActivity repairActivity = repairActivityRepository.findById(repairactivityId).orElse(null);
-            Orderline orderline = new Orderline(repairActivity, amount);
-            saveOrderlineToDbase(carinspection, orderline);
 
+            if(carinspection.getStatus().getName()==EStatus.OPEN){
+                RepairActivity repairActivity = repairActivityRepository.findById(repairactivityId).orElse(null);
+
+                Orderline orderline = new Orderline(repairActivity, amount);
+                saveOrderlineToDbase(carinspection, orderline);
+            }else {
+                throw new StatusErrorException();
+            }
         }else {
             throw new RecordNotFoundException();
         }
@@ -111,11 +119,17 @@ public class CarinspectionService {
 
     public void addCustomActivityToOrderline(long carinspectionId, OrderlineCustomRequest orderlineCustomRequest) {
 
-        Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
-        Orderline orderline = new Orderline(orderlineCustomRequest);
+        if(carinspectionRepository.existsById(carinspectionId)){
+            Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
 
-        if (carinspection != null) {
-            saveOrderlineToDbase(carinspection, orderline);
+            if(carinspection.getStatus().getName()==EStatus.OPEN){
+                Orderline orderline = new Orderline(orderlineCustomRequest);
+                saveOrderlineToDbase(carinspection, orderline);
+            }else {
+                throw new StatusErrorException();
+            }
+        }else{
+            throw new RecordNotFoundException();
         }
     }
 
@@ -128,8 +142,13 @@ public class CarinspectionService {
 
     public Client getClientByCarinspectionId(long carinspectionId){
 
-         Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
-        return clientRepository.findById(carinspection.getClient().getId()).orElse(null);
+        if(carinspectionRepository.existsById(carinspectionId)){
+
+            Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
+            return clientRepository.findById(carinspection.getClient().getId()).orElse(null);
+        }else {
+            throw new RecordNotFoundException();
+        }
     }
 
     public void deleteAppointment(long id) {
@@ -143,7 +162,6 @@ public class CarinspectionService {
     public Double finalizeCarinspectionAndRetrieveTotalPrice(long carinspectionId) {
 
         if(carinspectionRepository.existsById(carinspectionId)){
-         //   addCarInspectionCost(carinspectionId);
             List<Orderline> orderlineList = orderlineRepository.getOrderlinesByCarinspectionId(carinspectionId);
 
             double priceExVat = calculationService.getPriceExVatForRepairByCarinspection(orderlineList);
@@ -162,7 +180,7 @@ public class CarinspectionService {
         if (carinspectionRepository.existsById(carinspectionId)) {
             Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
 
-            if (carinspection.getStatus().getName() == EStatus.OPEN) {
+            if (carinspection.getStatus().getName() == EStatus.INSPECTED) {
 
                 Set<Orderline> orderlineSet = carinspection.getOrderlines();
                 orderlineSet.removeAll(orderlineSet);
@@ -187,10 +205,15 @@ public class CarinspectionService {
 
         if(carinspectionRepository.existsById(carinspectionId)){
             Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
-            Orderline orderline = new Orderline("Carinspection", 1, 45.00);
-            orderline.setCarinspection(carinspection);
-            carinspection.addOrderline(orderline);
 
+            if(carinspection.getStatus().getName()==EStatus.OPEN){
+                Orderline orderline = new Orderline("Carinspection", 1, 45.00);
+                orderline.setCarinspection(carinspection);
+                carinspection.addOrderline(orderline);
+
+            }else {
+                throw new StatusErrorException();
+            }
         }else {
             throw new RecordNotFoundException();
         }

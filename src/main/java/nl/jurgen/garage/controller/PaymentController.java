@@ -21,10 +21,10 @@ import java.util.List;
 public class PaymentController {
 
     @Autowired
-    private PaymentService paymentService;
+    PaymentService paymentService;
 
     @Autowired
-    private StatusService statusService;
+    StatusService statusService;
 
 
     @GetMapping(value = "/carinspection/{id}")

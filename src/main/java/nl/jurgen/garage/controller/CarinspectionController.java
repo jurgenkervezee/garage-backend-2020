@@ -15,19 +15,16 @@ import java.util.List;
 public class CarinspectionController {
 
     @Autowired
-    private CarinspectionService carinspectionService;
+    CarinspectionService carinspectionService;
 
     @Autowired
-    private ClientService clientService;
+    StatusService statusService;
 
     @Autowired
-    private StatusService statusService;
+    CarpartService carpartService;
 
     @Autowired
-    private CarpartService carpartService;
-
-    @Autowired
-    private RepairActivityService repairActivityService;
+    RepairActivityService repairActivityService;
 
     // List available inspections
     @GetMapping(value = "/list")
