@@ -47,7 +47,8 @@ INSERT INTO carinspection(date_inspection, status,client_id)
 VALUES
 (TO_DATE('01/02/2021','DD/MM/YYYY'), 1,1),
 (TO_DATE('15/02/2021','DD/MM/YYYY'), 1,3),
-(TO_DATE('01/03/2021','DD/MM/YYYY'), 1,2);
+(TO_DATE('01/03/2021','DD/MM/YYYY'), 1,2),
+(TO_DATE('01/03/2021','DD/MM/YYYY'), 1,4);
 
 INSERT INTO role(name)
 VALUES
@@ -55,10 +56,10 @@ VALUES
 
 INSERT INTO app_user(email, password, username)
 VALUES
-('moderation@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','moderator-test')
 ('reception@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','reception-test'),
 ('warehouse@warehouse.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','warehouse-test'),
 ('mechanic@mechanic.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','mechanic-test'),
-('cashier@cashier.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','cashier-test');
+('cashier@cashier.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','cashier-test'),
+('moderation@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','moderator-test');
 INSERT INTO user_role(user_id,role_id)
-VALUES(1,2),(2,4),(3,3),(4,5);
+VALUES(1,2),(2,4),(3,3),(4,5),(5,6);

@@ -205,7 +205,9 @@ public class CarinspectionService {
         if(carinspectionRepository.existsById(carinspectionId)){
             Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
 
-            if(carinspection.getStatus().getName()==EStatus.OPEN){
+            EStatus status = carinspection.getStatus().getName();
+
+            if(status==EStatus.OPEN || status == EStatus.INSPECTED){
                 Orderline orderline = new Orderline("Carinspection", 1, 45.00);
                 orderline.setCarinspection(carinspection);
                 carinspection.addOrderline(orderline);
