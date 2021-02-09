@@ -24,9 +24,8 @@ public class ClientService{
 
 
     public List<Client> getAllClients() {
-        List<Client> clients= clientRepository.findAll();
 
-        return clients;
+        return clientRepository.findAll();
     }
 
     public Client getClientById(long id) {
@@ -100,5 +99,4 @@ public class ClientService{
 
         }else throw new RecordNotFoundException();
     }
-
 }

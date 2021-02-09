@@ -103,6 +103,13 @@ public class ClientController {
         return new ResponseEntity<>(clientId, HttpStatus.CREATED);
     }
 
+    @GetMapping(value = "clientstocall/list")
+    public ResponseEntity<Object> getClientListWithFinishedCarinspection(){
+        List<Client> clients = carinspectionService.getClientsWithCarinpectionStatusRepairedAndDeclined();
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     // upload clients documents using client_id
     @PostMapping("/upload/clientid/{id}")
     public ResponseEntity<ResponseMessage> uploadFile(@PathVariable long id, @RequestParam("file") MultipartFile file) {
@@ -127,5 +134,4 @@ public class ClientController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
                 .body(fileDB.getData());
     }
-    
 }

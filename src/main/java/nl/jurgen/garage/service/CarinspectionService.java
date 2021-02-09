@@ -41,7 +41,6 @@ public class CarinspectionService {
     StatusService statusService;
 
     public List<Carinspection> getAllInspections() {
-
         return carinspectionRepository.findAll();
     }
 
@@ -170,7 +169,7 @@ public class CarinspectionService {
 
             return Math.round((priceExVat+priceVat)*100)/100.0d;
 
-        }else {
+        } else {
             throw new RecordNotFoundException();
         }
     }
@@ -217,5 +216,12 @@ public class CarinspectionService {
         }else {
             throw new RecordNotFoundException();
         }
+    }
+
+    public List<Client> getClientsWithCarinpectionStatusRepairedAndDeclined() {
+
+
+
+        return null;
     }
 }

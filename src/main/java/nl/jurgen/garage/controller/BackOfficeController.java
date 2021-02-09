@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/warehouse")
 public class BackOfficeController {
 
     @Autowired
@@ -97,5 +97,4 @@ public class BackOfficeController {
         repairActivityService.deleteRepairActivity(id);
         return new ResponseEntity<>("Repairactivity with ID: " + id + " deleted", HttpStatus.OK);
     }
-
 }
