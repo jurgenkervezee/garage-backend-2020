@@ -48,7 +48,24 @@ VALUES
 (TO_DATE('01/02/2021','DD/MM/YYYY'), 1,1),
 (TO_DATE('15/02/2021','DD/MM/YYYY'), 1,3),
 (TO_DATE('01/03/2021','DD/MM/YYYY'), 1,2),
-(TO_DATE('01/03/2021','DD/MM/YYYY'), 1,4);
+(TO_DATE('01/03/2021','DD/MM/YYYY'), 1,4),
+(TO_DATE('01/03/2021','DD/MM/YYYY'), 2,1),
+(TO_DATE('01/02/2021','DD/MM/YYYY'), 3,1),
+(TO_DATE('18/02/2021','DD/MM/YYYY'), 4,1);
+
+INSERT INTO orderline(id, amount, description, price, carinspection_id, carpart_id, repairactivity_id)
+VALUES
+(1, 1,'Olie aftappen en verversen',10.65,1,null,5),
+(2, 1,'Stuurhuis vervangen',200.76,1,null,2),
+(3, 1,'Luchtfilter vervangen',50.88,1,null,3),
+(4, 1,'Carinspection',45.00,1,null,1),
+(5, 1,'Lampjes vervangen',5.00,2,null,6),
+(6, 1,'Lampjes vervangen',5.00,4,null,6),
+(7, 2,'Velgen vervangen',25.09,1,null,4),
+(8, 2,'Carinspection',45.00,2,null,1),
+(9, 2,'Stuurhuis vervangen',200.87,2,null,2),
+(10, 1, 'Carinspection',45,4.99,null,1),
+(11, 2,'Stuurhuis vervangen',200.16,4,null,2);
 
 INSERT INTO role(name)
 VALUES
