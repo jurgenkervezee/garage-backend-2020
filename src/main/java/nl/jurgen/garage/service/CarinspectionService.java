@@ -150,6 +150,13 @@ public class CarinspectionService {
         }
     }
 
+    public List<Carinspection> getClientsByCarinspectionStatus(){
+
+        List<Carinspection> carinspectionList = carinspectionRepository.findAllByStatus_Name(EStatus.REPAIR_DECLINED);
+
+        return carinspectionList;
+    }
+
     public void deleteAppointment(long id) {
         if(carinspectionRepository.existsById(id)) {
             carinspectionRepository.deleteById(id);
@@ -220,10 +227,4 @@ public class CarinspectionService {
         }
     }
 
-    public List<Client> getClientsWithCarinpectionStatusRepairedAndDeclined() {
-
-
-
-        return null;
-    }
 }
