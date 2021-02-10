@@ -20,7 +20,6 @@ public class Carinspection {
     @Column(name = "date_inspection")
     private Date date;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

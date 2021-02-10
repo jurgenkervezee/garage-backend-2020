@@ -10,6 +10,7 @@ import nl.jurgen.garage.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -150,11 +151,28 @@ public class CarinspectionService {
         }
     }
 
-    public List<Carinspection> getClientsByCarinspectionStatus(){
+    public List<Client> getClientsByCarinspectionStatus(){
 
-        List<Carinspection> carinspectionList = carinspectionRepository.findAllByStatus_Name(EStatus.REPAIR_DECLINED);
+        List<Client> clientsToCall = new ArrayList<>();
+        List<Carinspection> carinspectionListRepaired = carinspectionRepository.findAllByStatus_Name(EStatus.REPAIRED);
+        List<Carinspection> carinspectionListDeclined = carinspectionRepository.findAllByStatus_Name(EStatus.REPAIR_DECLINED);
 
-        return carinspectionList;
+        if(carinspectionListRepaired.size()>0){
+            for (Carinspection i : carinspectionListRepaired){
+                clientsToCall.add(i.getClient());
+            }
+        }
+
+        if(carinspectionListDeclined.size()>0){
+            for (Carinspection i : carinspectionListDeclined){
+                clientsToCall.add(i.getClient());
+            }
+        }
+        if(clientsToCall!=null){
+            return clientsToCall;
+        }else {
+            throw new RecordNotFoundException();
+        }
     }
 
     public void deleteAppointment(long id) {

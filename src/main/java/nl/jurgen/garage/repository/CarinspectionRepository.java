@@ -14,5 +14,4 @@ public interface CarinspectionRepository extends JpaRepository <Carinspection, L
     boolean existsByClientIdAndAndDate(long id, Date date);
 
     List<Carinspection> findAllByStatus_Name(EStatus status);
-
 }

@@ -106,10 +106,9 @@ public class ClientController {
     @GetMapping(value = "clientstocall/list")
     public ResponseEntity<Object> getClientListWithFinishedCarinspection(){
 
-        List<Carinspection> carinspectionList = carinspectionService.getClientsByCarinspectionStatus();
+        List<Client> clientToCallList = carinspectionService.getClientsByCarinspectionStatus();
 
-
-        return new ResponseEntity<>(carinspectionList, HttpStatus.OK);
+        return new ResponseEntity<>(clientToCallList, HttpStatus.OK);
     }
 
     // upload clients documents using client_id
