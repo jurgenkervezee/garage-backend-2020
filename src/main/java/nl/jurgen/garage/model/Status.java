@@ -24,6 +24,10 @@ public class Status {
     public Status() {
     }
 
+    public Status(EStatus name) {
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }
