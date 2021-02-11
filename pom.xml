@@ -10,10 +10,10 @@
 	</parent>
 
 	<groupId>nl.jurgen</groupId>
-	<artifactId>jpa_demo</artifactId>
+	<artifactId>garage-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>jpa_demo</name>
-	<description>Demo project for Spring Boot JPA</description>
+	<description>garage-backend opdracht voor softwaredevelopement jaar 2</description>
 
 	<properties>
 		<java.version>11</java.version>

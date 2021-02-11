@@ -168,11 +168,7 @@ public class CarinspectionService {
                 clientsToCall.add(i.getClient());
             }
         }
-        if(clientsToCall!=null){
-            return clientsToCall;
-        }else {
-            throw new RecordNotFoundException();
-        }
+        return clientsToCall;
     }
 
     public void deleteAppointment(long id) {

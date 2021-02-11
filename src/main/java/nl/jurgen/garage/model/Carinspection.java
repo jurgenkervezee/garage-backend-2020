@@ -44,6 +44,10 @@ public class Carinspection {
     this.status = status;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Status getStatus() {
         return status;
     }
