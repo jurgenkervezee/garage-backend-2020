@@ -27,7 +27,7 @@ public class PaymentController {
     StatusService statusService;
 
 
-    @GetMapping(value = "/carinspection/{id}")
+    @GetMapping(value = "/carinspectionid/{id}")
     public ResponseEntity<Object> getOrderlinesForCarinspection(@PathVariable long id){
 
         List<Orderline> orderlineList =  paymentService.getOrderlinesCarinspection(id);
@@ -36,7 +36,7 @@ public class PaymentController {
     }
 
     //List all orderlines for a carinspection and get the total price including VAT also change status to PAID_CLOSED
-    @GetMapping(value = "carinspectionid/{id}")
+    @GetMapping(value = "/paid/carinspectionid/{id}")
     public ResponseEntity<Object> getPaymentDetailsForCarinspection(@PathVariable long id){
 
         ResponsePayment responsePayment = paymentService.getPaymentDetails(id);
