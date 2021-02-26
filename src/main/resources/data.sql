@@ -1,3 +1,21 @@
+INSERT INTO status(name)
+VALUES
+('OPEN'),('INSPECTED'), ('REPAIRED'), ('REPAIR_DECLINED'), ('PAID_CLOSED');
+
+INSERT INTO role(name)
+VALUES
+('ROLE_USER'), ('ROLE_RECEPTION'),('ROLE_MECHANIC'),('ROLE_WAREHOUSE'),('ROLE_CASHIER'),('ROLE_MODERATOR'),('ROLE_ADMIN');
+
+INSERT INTO app_user(email, password, username)
+VALUES
+('reception@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','reception-test'),
+('warehouse@warehouse.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','warehouse-test'),
+('mechanic@mechanic.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','mechanic-test'),
+('cashier@cashier.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','cashier-test'),
+('moderation@moderation.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','moderator-test');
+INSERT INTO user_role(user_id,role_id)
+VALUES(1,2),(2,4),(3,3),(4,5),(5,6);
+
 INSERT INTO client (first_name, last_name, telephone_number)
 VALUES
 ('Peter', 'Anema', '06-12345678'),
@@ -38,11 +56,6 @@ VALUES
 ('Lampjes vervangen',5),
 ('Koffiedrinken',1.50);
 
-INSERT INTO status(name)
-VALUES
-('OPEN'),('INSPECTED'), ('REPAIRED'), ('REPAIR_DECLINED'), ('PAID_CLOSED');
-
-
 INSERT INTO carinspection(date_inspection, status,client_id)
 VALUES
 (TO_DATE('01/02/2021','DD/MM/YYYY'), 1,1),
@@ -53,30 +66,16 @@ VALUES
 (TO_DATE('01/02/2021','DD/MM/YYYY'), 3,1),
 (TO_DATE('18/02/2021','DD/MM/YYYY'), 4,1);
 
-INSERT INTO orderline(id, amount, description, price, carinspection_id, carpart_id, repairactivity_id)
+INSERT INTO orderline(amount, description, price, carinspection_id, carpart_id, repairactivity_id)
 VALUES
-(1, 1,'Olie aftappen en verversen',10.65,1,null,5),
-(2, 1,'Stuurhuis vervangen',200.76,1,null,2),
-(3, 1,'Luchtfilter vervangen',50.88,1,null,3),
-(4, 1,'Carinspection',45.00,1,null,1),
-(5, 1,'Lampjes vervangen',5.00,2,null,6),
-(6, 1,'Lampjes vervangen',5.00,4,null,6),
-(7, 2,'Velgen vervangen',25.09,1,null,4),
-(8, 2,'Carinspection',45.00,2,null,1),
-(9, 2,'Stuurhuis vervangen',200.87,2,null,2),
-(10, 1, 'Carinspection',45,4.99,null,1),
-(11, 2,'Stuurhuis vervangen',200.16,4,null,2);
-
-INSERT INTO role(name)
-VALUES
-('ROLE_USER'), ('ROLE_RECEPTION'),('ROLE_MECHANIC'),('ROLE_WAREHOUSE'),('ROLE_CASHIER'),('ROLE_MODERATOR'),('ROLE_ADMIN');
-
-INSERT INTO app_user(email, password, username)
-VALUES
-('reception@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','reception-test'),
-('warehouse@warehouse.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','warehouse-test'),
-('mechanic@mechanic.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','mechanic-test'),
-('cashier@cashier.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','cashier-test'),
-('moderation@reception.com','$2a$10$ObwVYwkqoDejbGWWGL.NDO4wN9Fssla2R/StfaYYVxxudZW51p4AS','moderator-test');
-INSERT INTO user_role(user_id,role_id)
-VALUES(1,2),(2,4),(3,3),(4,5),(5,6);
+(1,'Olie aftappen en verversen',10.65,1,null,5),
+(1,'Stuurhuis vervangen',200.76,1,null,2),
+(1,'Luchtfilter vervangen',50.88,1,null,3),
+(1,'Carinspection',45.00,1,null,1),
+(1,'Lampjes vervangen',5.00,2,null,6),
+(1,'Lampjes vervangen',5.00,4,null,6),
+(2,'Velgen vervangen',25.09,1,null,4),
+(2,'Carinspection',45.00,2,null,1),
+(2,'Stuurhuis vervangen',200.87,2,null,2),
+(1, 'Carinspection',45,4.99,null,1),
+(2,'Stuurhuis vervangen',200.16,4,null,2);

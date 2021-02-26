@@ -145,18 +145,6 @@ public class AuthorizationService {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    /**
-     * Deze methode controleert de ontvangen username en wachtwoord. Het gebruikt hiervoor de
-     * AuthenticationManager. I.a.w. Spring security doet die allemaal voor ons.
-     *
-     * Wanneer de gebruikersnaam/wachtwoord combinatie niet klopt, wordt er een Runtime exception gegooid:
-     * 401 Unauthorized. Deze wordt gegooid door
-     * nl.novi.stuivenberg.springboot.example.security.service.security.jwt.AuthEntryPointJwt
-     *
-     *
-     * @param loginRequest De payload met username en password.
-     * @return een HTTP-response met daarin de JWT-token.
-     */
     public ResponseEntity<JwtResponse> authenticateUser(@Valid LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(

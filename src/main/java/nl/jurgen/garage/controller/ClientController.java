@@ -62,7 +62,7 @@ public class ClientController {
     }
 
     //Change Client by ID
-    @PutMapping(value = "/clients/{id}")
+    @PostMapping(value = "/{id}")
     public ResponseEntity<Object> updateClient(@PathVariable("id") long id, @RequestBody Client client){
         clientService.updateClient(id, client);
         return new ResponseEntity<>(HttpStatus.OK);

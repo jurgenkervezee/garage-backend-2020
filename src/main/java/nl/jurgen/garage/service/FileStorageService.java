@@ -37,6 +37,8 @@ public class FileStorageService {
 
     public FileDB getFileById(String id){
 
+        if(!fileDBRepository.existsById(id)){ throw new RecordNotFoundException();
+        }
         return fileDBRepository.findById(id).get();
     }
     public FileDB getFile(long id) {

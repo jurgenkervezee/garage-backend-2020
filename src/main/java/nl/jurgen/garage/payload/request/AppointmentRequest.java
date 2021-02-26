@@ -3,11 +3,14 @@ package nl.jurgen.garage.payload.request;
 import nl.jurgen.garage.model.EStatus;
 import nl.jurgen.garage.model.Status;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class AppointmentRequest {
 
+    @NotBlank
     private Date date;
+    @NotBlank
     private Status status;
 
     public AppointmentRequest(Date date) {

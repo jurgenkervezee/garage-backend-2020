@@ -11,8 +11,8 @@ public class User {
 
     @Id
     @GeneratedValue(
-            strategy= GenerationType.AUTO,
-            generator="native"
+            strategy= GenerationType.IDENTITY
+//            generator="native"
     )
     @GenericGenerator(
             name = "native",

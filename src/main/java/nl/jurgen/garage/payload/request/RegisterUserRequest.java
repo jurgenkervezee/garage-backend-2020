@@ -1,17 +1,25 @@
 package nl.jurgen.garage.payload.request;
 
+import javax.validation.constraints.NotBlank;
 
 public class RegisterUserRequest {
 
     //Client
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
+    @NotBlank
     private String telephoneNumber;
     //Address
+    @NotBlank
     private String streetName;
+    @NotBlank
     private String houseNumber;
     private String houseNumberAddition; //optioneel
+    @NotBlank
     private String postalCode;
+    @NotBlank
     private String homeTown;
 
     public String getFirstName() {

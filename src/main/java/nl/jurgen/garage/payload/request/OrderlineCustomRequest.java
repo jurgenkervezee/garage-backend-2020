@@ -1,7 +1,5 @@
 package nl.jurgen.garage.payload.request;
 
-import nl.jurgen.garage.model.Carinspection;
-
 public class OrderlineCustomRequest {
 
     private String description;
@@ -31,5 +29,4 @@ public class OrderlineCustomRequest {
     public void setPrice(double price) {
         this.price = price;
     }
-
 }

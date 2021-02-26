@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Orderline {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
@@ -81,6 +81,9 @@ public class Orderline {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public double getPrice() {
         return price;
