@@ -112,7 +112,7 @@ public class CarinspectionController {
     public ResponseEntity<Object> declineRepairByCarinspectionId(@PathVariable long carinspectionid){
 
         double price = carinspectionService.declineRepair(carinspectionid);
-        statusService.changeStatus(carinspectionid, EStatus.REPAIR_DECLINED);
+//        statusService.changeStatus(carinspectionid, EStatus.REPAIR_DECLINED);
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
 

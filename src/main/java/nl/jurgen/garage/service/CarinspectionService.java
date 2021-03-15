@@ -186,7 +186,6 @@ public class CarinspectionService {
 
             double priceExVat = calculationService.getPriceExVatForRepairByCarinspection(orderlineList);
             double priceVat = calculationService.calculateVat(priceExVat);
-            statusService.changeStatus(carinspectionId, EStatus.INSPECTED);
 
             return Math.round((priceExVat+priceVat)*100)/100.0d;
 
@@ -208,8 +207,9 @@ public class CarinspectionService {
                 carinspection.setOrderlines(orderlineSet);
                 addCarInspectionCost(carinspectionId);
 
-                statusService.changeStatus(carinspectionId, EStatus.REPAIR_DECLINED);
                 carinspectionRepository.save(carinspection);
+
+                statusService.changeStatus(carinspectionId, EStatus.REPAIR_DECLINED);
 
                 return finalizeCarinspectionAndRetrieveTotalPrice(carinspectionId);
 
