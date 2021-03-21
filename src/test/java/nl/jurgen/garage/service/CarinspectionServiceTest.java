@@ -27,10 +27,6 @@ StatusRepository statusRepository;
 Carinspection carinspection;
 @Mock
 Client client;
-//@Mock
-//Orderline orderline;
-//@Mock
-//Status status;
 
     @BeforeEach
     public void setup(){

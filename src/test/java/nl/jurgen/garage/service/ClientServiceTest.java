@@ -55,37 +55,6 @@ class ClientServiceTest {
     }
 
     @Test
-    void saveClient() {
-        //Given
-        RegisterUserRequest registerUserRequest = new RegisterUserRequest();
-        registerUserRequest.setFirstName("Voornaam");
-        registerUserRequest.setLastName("Achternaam");
-        registerUserRequest.setTelephoneNumber("TelephoneNumber");
-        registerUserRequest.setStreetName("Straatnaam");
-        registerUserRequest.setPostalCode("1000 BA");
-        registerUserRequest.setHouseNumber("1");
-        registerUserRequest.setHouseNumberAddition("A");
-        registerUserRequest.setHomeTown("Bussum");
-        Client savedClient = new Client();
-        Address address = new Address();
-
-        long id = 1;
-
-        //When
-        Mockito
-                .when(addressRepository.save(address))
-                .thenReturn(address);
-        Mockito
-                .when(clientRepository.save(savedClient))
-                .thenReturn(savedClient);
-
-
-
-        long idResult = clientService.saveClient(registerUserRequest);
-    }
-
-
-    @Test
     void getClientByLastName() {
         //Given
         Mockito
