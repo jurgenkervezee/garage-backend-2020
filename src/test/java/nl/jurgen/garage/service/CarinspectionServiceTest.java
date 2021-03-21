@@ -98,6 +98,7 @@ Client client;
 
     @Test
     void finalizeCarinspectionAndRetrieveTotalPrice() {
+        //Nog maken
     }
 
 
@@ -130,5 +131,6 @@ Client client;
 
     @Test
     void saveAppointment() {
+        //Nog maken
     }
 }
