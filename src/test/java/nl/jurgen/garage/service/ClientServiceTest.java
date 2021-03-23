@@ -1,9 +1,6 @@
 package nl.jurgen.garage.service;
 
-import nl.jurgen.garage.model.Address;
 import nl.jurgen.garage.model.Client;
-import nl.jurgen.garage.model.ClientBuilder;
-import nl.jurgen.garage.payload.request.RegisterUserRequest;
 import nl.jurgen.garage.repository.AddressRepository;
 import nl.jurgen.garage.repository.ClientRepository;
 import org.junit.jupiter.api.Assertions;

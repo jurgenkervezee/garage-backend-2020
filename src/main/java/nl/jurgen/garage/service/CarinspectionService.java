@@ -59,7 +59,6 @@ public class CarinspectionService {
         Status status = statusRepository.findByName(appointmentRequest.getStatus().getName());
         Carinspection carinspection = new Carinspection(appointmentRequest.getDate(), status);
 
-
         if(clientRepository.existsById(clientId)){
 
             Client client = clientRepository.findById(clientId).orElse(null);

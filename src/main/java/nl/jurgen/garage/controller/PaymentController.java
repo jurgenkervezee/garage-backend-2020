@@ -1,6 +1,5 @@
 package nl.jurgen.garage.controller;
 
-import nl.jurgen.garage.model.Client;
 import nl.jurgen.garage.model.EStatus;
 import nl.jurgen.garage.model.Orderline;
 import nl.jurgen.garage.payload.response.ResponsePayment;
