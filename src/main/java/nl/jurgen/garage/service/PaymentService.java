@@ -39,7 +39,7 @@ public class PaymentService {
         if(orderlineRepository.existsByCarinspectionId(carinspectionId)){
             Carinspection carinspection = carinspectionRepository.findById(carinspectionId).orElse(null);
 
-            if(carinspection.getStatus().getName()==EStatus.INSPECTED || carinspection.getStatus().getName()==EStatus.REPAIR_DECLINED) {
+            if(carinspection.getStatus().getName()==EStatus.REPAIRED || carinspection.getStatus().getName()==EStatus.REPAIR_DECLINED) {
                 List<Orderline> orderlines = orderlineRepository.getOrderlinesByCarinspectionId(carinspectionId);
                 double totalPriceExVat = calculationService.getPriceExVatForRepairByCarinspection(orderlines);
                 double totalVatPrice = calculationService.calculateVat(totalPriceExVat);

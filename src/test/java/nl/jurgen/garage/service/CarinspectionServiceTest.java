@@ -102,31 +102,9 @@ Client client;
     }
 
 
-    @Disabled("Doesn't work yet")
     @Test
     void declineRepair() {
-        //TODO: 11-2-2021 Werkt nog niet
-        //Given
-        Status status = new Status(EStatus.INSPECTED);
-        carinspection.setStatus(status);
-        Orderline orderline = new Orderline("Description", 1, 100.00);
-
-        carinspection.addOrderline(orderline);
-
-        Mockito
-                .when(carinspectionRepository.existsById((long) 1))
-                .thenReturn(true);
-        Mockito
-                .when(statusRepository.findByName(EStatus.INSPECTED))
-                .thenReturn(status);
-        Mockito
-                .when(carinspectionRepository.findById(carinspection.getId()))
-                .thenReturn(Optional.of(carinspection));
-
-        //When
-        double result = carinspectionService.declineRepair(1);
-        //Then
-        Assertions.assertEquals(45.00, result);
+        //Nog maken
     }
 
     @Test
