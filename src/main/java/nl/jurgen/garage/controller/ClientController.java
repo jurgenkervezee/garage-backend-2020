@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/clients")
 public class ClientController {
 

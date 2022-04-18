@@ -57,17 +57,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                    .antMatchers("/api/auth/signin").permitAll()
-                    .antMatchers("/api/auth/signup").hasRole("MODERATOR")
-                    .antMatchers("/api/clients/**").hasRole("RECEPTION")
-                    .antMatchers("/api/inspections/**").hasRole("MECHANIC")
-                    .antMatchers("/api/warehouse/**").hasRole("WAREHOUSE")
-                    .antMatchers("/api/payment/**").hasRole("CASHIER")
-                .anyRequest().authenticated();
+                http
+                        .cors()
+                        .and()
+                        .csrf()
+                        .disable()
+                        .exceptionHandling()
+                        .authenticationEntryPoint(unauthorizedHandler)
+                        .and()
+                        .sessionManagement()
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .and()
+                        .authorizeRequests()
+                        .antMatchers("/api/auth/signin").permitAll()
+                        .antMatchers("/api/auth/signup").hasRole("MODERATOR")
+                        .antMatchers("/api/clients/**").hasRole("RECEPTION")
+                        .antMatchers("/api/inspections/**").hasRole("MECHANIC")
+                        .antMatchers("/api/warehouse/**").hasRole("WAREHOUSE")
+                        .antMatchers("/api/payment/**").hasRole("CASHIER")
+                        .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
